@@ -1,0 +1,3 @@
+/*
+    This is for the Professor model model use this for all schemas and jwt and mongo
+*/
