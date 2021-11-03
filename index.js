@@ -5,10 +5,11 @@
 const express = require('express');
 const { Logger } = require('./middleware/Logger');
 const {DatabaseHandler} = require('./DatabaseHandler');
+const {Mongo_Pass} = require('./developPass');
 
 //enviorment and development vars 
 const PORT = process.env.PORT || 8080;
-const MONGOURL = process.env.MONGOURL || "mongodb://127.0.0.1:27017/group_project_db";
+const MONGOURL = process.env.MONGOURL || Mongo_Pass();
 
 //app and db
 let app = express();
