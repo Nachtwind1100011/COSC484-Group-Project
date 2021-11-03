@@ -17,18 +17,36 @@ let database = new DatabaseHandler(MONGOURL);
 
 
 //middleware 
-app.use(express.json()); // for json request
-app.use(express.urlencoded({extended:true})); // parsing 
 app.use(express.static(__dirname + "/public")); //public render for html js css
 app.use(Logger);
+app.use(express.json()); // for json request
+app.use(express.urlencoded({extended:true})); // parsing 
 
 
 
 //for the main page aka index
 app.get("/", (req, res, next) => {
-    return res.status(200).send("Page working.");
+    return res.status(200).render("index");
 });
 
+
+app.post("/createUser", async (req, res, next) => {
+    let username = req.body.username;
+    let email = req.body.email;
+    let learningPreference = req.body.learningPreference;
+    let password =  req.body.password;
+
+    let status = await database.createUser(username, email, learningPreference, password);
+    if(status == 201) {
+        let user = await database.getUser(username);
+        
+        //jwt sign user
+   
+        res.status(status).json(user);
+    } else {
+        res.status(status).send("Error with creation status: " + status);
+    }
+});
 
 
 app.listen(PORT, () => {
