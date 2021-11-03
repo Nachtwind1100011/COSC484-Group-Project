@@ -14,11 +14,11 @@ describe("DatabaseHandler", async () => {
         const pass = 'testpassword';
         const hashedPass = await bcrypt.hash(pass, 10);
         this.user = {
-            'username': 'jimmy12',
-            'email': 'jimmy12@gmail.com',
-            'learningPreference': 'textbook',
-            'password': pass,
-            'hashedPass': hashedPass
+            username: 'jimmy12',
+            email: 'jimmy12@gmail.com',
+            learningPreference: 'textbook',
+            password: pass,
+            hashedPass: hashedPass
         }
         this.dbHandler = new DatabaseHandler(MONGOURL);
         await this.dbHandler.startDatabase();

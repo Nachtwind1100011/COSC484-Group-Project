@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const User = require('./models/User');
+const SALT_ROUNDS = 10;
 
 class DatabaseHandler {
     constructor(url) {
@@ -22,27 +23,24 @@ class DatabaseHandler {
     async createUser(username, email, learningPreference, password) {
         const duplicate = await User.findOne({username: username})
         if(duplicate) {
-            return {
-                "Error": "username in uses"
-            }
+            return 409
         }
 
         try {
-            const hashedPass = await bcrypt.hash(password, 10);
+            let hashedPass = bcrypt.hashSync(password, SALT_ROUNDS);
 
             const result = await User.create({
-                "username": username,
-                "email": email,
-                "learningPreference": learningPreference,
-                "password": hashedPass
+                username: username,
+                email: email,
+                learningPreference: learningPreference,
+                password: hashedPass
             });
-
-            return result;
+            
+            return 201;
 
         } catch(error) {
-            return {
-                "Error": "Error creating user"
-            }
+            console.log(error);
+            return 400;
         }
     }
 
