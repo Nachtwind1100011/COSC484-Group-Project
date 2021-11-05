@@ -20,10 +20,11 @@ class DatabaseHandler {
         }
     }
 
+    //create user for database
     async createUser(username, email, learningPreference, password) {
-        const duplicate = await User.findOne({username: username})
+        const duplicate = await User.findOne({username: username});
         if(duplicate) {
-            return 409
+            return 409;
         }
 
         try {
@@ -51,7 +52,7 @@ class DatabaseHandler {
         } catch(error) {
             return {
                 "Error": error
-            }
+            };
         }
     }
 }
