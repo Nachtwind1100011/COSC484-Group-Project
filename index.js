@@ -36,6 +36,10 @@ app.post("/createUser", async (req, res, next) => {
     let learningPreference = req.body.learningPreference;
     let password =  req.body.password;
 
+    if (!(username && email && learningPreference && password)) {
+        return res.status(400).send("Error");
+    }
+
     let status = await database.createUser(username, email, learningPreference, password);
     if(status == 201) {
         let user = await database.getUser(username);
@@ -47,6 +51,8 @@ app.post("/createUser", async (req, res, next) => {
         res.status(status).send("Error with creation status: " + status);
     }
 });
+
+
 
 
 app.listen(PORT, () => {
