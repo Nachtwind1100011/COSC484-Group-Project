@@ -45,6 +45,7 @@ class DatabaseHandler {
         }
     }
 
+    //get a user from the data
     async getUser(username) {
         try {
             const user = await User.findOne({username: username});

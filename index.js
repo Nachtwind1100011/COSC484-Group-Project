@@ -30,6 +30,7 @@ app.get("/", (req, res, next) => {
 });
 
 
+//the post request for creating a new user 
 app.post("/createUser", async (req, res, next) => {
     let username = req.body.username;
     let email = req.body.email;
@@ -37,7 +38,7 @@ app.post("/createUser", async (req, res, next) => {
     let password =  req.body.password;
 
     if (!(username && email && learningPreference && password)) {
-        return res.status(400).send("Error");
+        return res.status(400).send("Error please enter all data");
     }
 
     let status = await database.createUser(username, email, learningPreference, password);
