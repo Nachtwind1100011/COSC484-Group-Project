@@ -40,8 +40,8 @@ app.post("/createUser", async (req, res, next) => {
     let learningPreference = req.body.learningPreference;
     let password =  req.body.password;
 
-    if (!(username && email && learningPreference && password)) {
-        return res.status(400).send("Error please enter all data");
+    if (!username || !email || !learningPreference || !password) {
+        return res.status(400).send("Error please fill out all fields");
     }
 
     let status = await database.createUser(username, email, learningPreference, password);
@@ -50,13 +50,14 @@ app.post("/createUser", async (req, res, next) => {
         
         //jwt sign user may not need to have in user model ask professor
         jwt.sign({user : user}, SECRETE_KEY, async (err, token) => {
-            console.log(user);
+            
             if(err) {
-                return res.status(500);
+                return res.status(500).send("Token not made");
             }
 
             user.refreshToken = token;
-            await user.save();
+           //await user.save();
+
 
             res.status(status).json(user);
         });
@@ -64,6 +65,44 @@ app.post("/createUser", async (req, res, next) => {
         
     } else {
         res.status(status).send("Error with creation status: " + status);
+    }
+});
+
+
+//the post login route 
+app.post("/login", async (req, res, next) => {
+    let username = req.body.username;
+    let password = req.body.password;
+
+    if(!username || !password) {
+        return res.status(400).send("Error please fill out all fields");
+    }
+
+    let user = await database.getUser(username);
+
+//    console.log(user);
+    if(user == null) {
+        return res.status(500).send("Username not found");
+    }
+
+    let match = await database.checkUserPassword(password, user.password);
+    
+    if(match) {
+                //jwt sign user may not need to have in user model ask professor
+        jwt.sign({user : user}, SECRETE_KEY, async (err, token) => {
+           
+            if(err) {
+                return res.status(500).send("Token not made");
+            }
+
+            user.refreshToken = token;
+            //await user.save();
+
+            res.status(200).json(user);
+        });
+
+    } else {
+        res.status(500).send("Error password not matched");
     }
 });
 
