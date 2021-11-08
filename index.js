@@ -5,11 +5,14 @@
 const express = require('express');
 const { Logger } = require('./middleware/Logger');
 const {DatabaseHandler} = require('./DatabaseHandler');
-const {Mongo_Pass} = require('./developPass');
+const {Developer} = require('./developPass');
+const jwt = require("jsonwebtoken");
+
 
 //enviorment and development vars 
 const PORT = process.env.PORT || 8080;
-const MONGOURL = process.env.MONGOURL || Mongo_Pass();
+const MONGOURL = process.env.MONGOURL || Developer.Mongo_Pass();
+const SECRETE_KEY = process.env.SECRETE || Developer.Secrete_Key();
 
 //app and db
 let app = express();
@@ -45,9 +48,20 @@ app.post("/createUser", async (req, res, next) => {
     if(status == 201) {
         let user = await database.getUser(username);
         
-        //jwt sign user
+        //jwt sign user may not need to have in user model ask professor
+        jwt.sign({user : user}, SECRETE_KEY, async (err, token) => {
+            console.log(user);
+            if(err) {
+                return res.status(500);
+            }
+
+            user.refreshToken = token;
+            await user.save();
+
+            res.status(status).json(user);
+        });
    
-        res.status(status).json(user);
+        
     } else {
         res.status(status).send("Error with creation status: " + status);
     }
