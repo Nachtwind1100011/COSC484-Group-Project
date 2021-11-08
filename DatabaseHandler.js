@@ -51,10 +51,13 @@ class DatabaseHandler {
             const user = await User.findOne({username: username});
             return user;
         } catch(error) {
-            return {
-                "Error": error
-            };
+            return null;
         }
+    }
+
+    async checkUserPassword(password, hashedPassword) {
+        let match = await bcrypt.compare(password, hashedPassword);
+        return match;
     }
 }
 
