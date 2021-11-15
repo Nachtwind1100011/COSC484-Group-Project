@@ -1,41 +1,13 @@
-/*
-    This is for the end points use this for all api calls 
-    if you want to use real in time rendering (Socket.IO please attached to seperate file)
-*/
 const express = require('express');
-const { Logger } = require('./middleware/Logger');
-const {DatabaseHandler} = require('./DatabaseHandler');
-const {Developer} = require('./developPass');
-const userRouter = require('./Routes/users');
+let router = express.Router();
+const {DatabaseHandler} = require('../DatabaseHandler');
+const jwt = require("jsonwebtoken");
+const {Developer} = require('../developPass');
+const SECRETE_KEY = process.env.SECRETE || Developer.Secrete_Key();
 
 
-//enviorment and development vars 
-const PORT = process.env.PORT || 8080;
-const MONGO_URL = process.env.MONGOURL || Developer.Mongo_Pass();
-
-//app and db
-let app = express();
-
-
-//middleware 
-app.use(express.static(__dirname + "/public")); //public render for html js css
-app.use(Logger);
-app.use(express.json()); // for json request
-app.use(express.urlencoded({extended:true})); // parsing 
-
-//routing
-app.use('/users', userRouter);
-
-
-//for the main page aka index testing 
-app.get("/", (req, res, next) => {
-    return res.status(200).render("index");
-});
-
-
-<<<<<<< HEAD
 //the post request for creating a new user 
-app.post("/createUser", async (req, res, next) => {
+router.post("/createUser", async (req, res, next) => {
     let username = req.body.username;
     let email = req.body.email;
     let learningPreference = req.body.learningPreference;
@@ -45,9 +17,9 @@ app.post("/createUser", async (req, res, next) => {
         return res.status(400).send("Error please fill out all fields");
     }
 
-    let status = await database.createUser(username, email, learningPreference, password);
+    let status = await DatabaseHandler.createUser(username, email, learningPreference, password);
     if(status == 201) {
-        let user = await database.getUser(username);
+        let user = await DatabaseHandler.getUser(username);
         
         //jwt sign user may not need to have in user model ask professor
         jwt.sign({user : user}, SECRETE_KEY, async (err, token) => {
@@ -69,9 +41,8 @@ app.post("/createUser", async (req, res, next) => {
     }
 });
 
-
 //the post login route 
-app.post("/login", async (req, res, next) => {
+router.post("/login", async (req, res, next) => {
     let username = req.body.username;
     let password = req.body.password;
 
@@ -79,16 +50,17 @@ app.post("/login", async (req, res, next) => {
         return res.status(400).send("Error please fill out all fields");
     }
 
-    let user = await database.getUser(username);
+    let user = await DatabaseHandler.getUser(username);
 
+//    console.log(user);
     if(user == null) {
         return res.status(500).send("Username not found");
     }
 
-    let match = await database.checkUserPassword(password, user.password);
+    let match = await DatabaseHandler.checkUserPassword(password, user.password);
     
     if(match) {
-        //jwt sign user may not need to have in user model ask professor
+                //jwt sign user may not need to have in user model ask professor
         jwt.sign({user : user}, SECRETE_KEY, async (err, token) => {
            
             if(err) {
@@ -106,12 +78,4 @@ app.post("/login", async (req, res, next) => {
     }
 });
 
-
-=======
->>>>>>> ba09e1bb81815deca871a6aad817c04ac1c809e7
-
-
-app.listen(PORT, () => {
-    console.log(`Running server on port ${PORT}`);
-    DatabaseHandler.startDatabase(MONGO_URL);
-});
+module.exports = router;
