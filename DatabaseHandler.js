@@ -4,15 +4,12 @@ const User = require('./models/User');
 const SALT_ROUNDS = 10;
 
 class DatabaseHandler {
-    constructor(url) {
-        this.url = url;
-    }
 
     //starting the database 
-    async startDatabase() {
+    static async startDatabase(url) {
         try {
 
-            await mongoose.connect(this.url);
+            await mongoose.connect(url);
             console.log("Database started");
             
         } catch (error) {
@@ -21,7 +18,7 @@ class DatabaseHandler {
     }
 
     //create user for database
-    async createUser(username, email, learningPreference, password) {
+    static async createUser(username, email, learningPreference, password) {
         const duplicate = await User.findOne({username: username});
         if(duplicate) {
             return 409;
@@ -46,7 +43,7 @@ class DatabaseHandler {
     }
 
     //get a user from the data
-    async getUser(username) {
+    static async getUser(username) {
         try {
             const user = await User.findOne({username: username});
             return user;
@@ -55,7 +52,7 @@ class DatabaseHandler {
         }
     }
 
-    async checkUserPassword(password, hashedPassword) {
+    static async checkUserPassword(password, hashedPassword) {
         let match = await bcrypt.compare(password, hashedPassword);
         return match;
     }
