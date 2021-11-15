@@ -33,8 +33,6 @@ app.get("/", (req, res, next) => {
 });
 
 
-
-
 app.listen(PORT, () => {
     console.log(`Running server on port ${PORT}`);
     DatabaseHandler.startDatabase(MONGO_URL);
