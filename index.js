@@ -80,7 +80,6 @@ app.post("/login", async (req, res, next) => {
 
     let user = await database.getUser(username);
 
-//    console.log(user);
     if(user == null) {
         return res.status(500).send("Username not found");
     }
@@ -88,7 +87,7 @@ app.post("/login", async (req, res, next) => {
     let match = await database.checkUserPassword(password, user.password);
     
     if(match) {
-                //jwt sign user may not need to have in user model ask professor
+        //jwt sign user may not need to have in user model ask professor
         jwt.sign({user : user}, SECRETE_KEY, async (err, token) => {
            
             if(err) {
