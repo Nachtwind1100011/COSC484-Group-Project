@@ -6,8 +6,12 @@ import Prof from "./components/prof";
 import Search from "./components/search";
 import SignUp from "./components/sign-up";
 import Landing from "./components/landing";
-
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
+import "./App.css";
 function App() {
+  library.add(faGraduationCap);
+
   return (
     <BrowserRouter>
       <Routes>

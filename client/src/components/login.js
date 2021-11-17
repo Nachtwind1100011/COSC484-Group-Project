@@ -1,7 +1,12 @@
 import React from "react";
+import Nav from "./nav";
 
 function Login() {
-  return <div>Login</div>;
+  return (
+    <div>
+      <Nav status='login' />
+    </div>
+  );
 }
 
 export default Login;

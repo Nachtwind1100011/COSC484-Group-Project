@@ -1,7 +1,12 @@
 import React from "react";
+import Nav from "./nav";
 
 function Search() {
-  return <div>Search</div>;
+  return (
+    <div>
+      <Nav status='loggedIn' />
+    </div>
+  );
 }
 
 export default Search;
