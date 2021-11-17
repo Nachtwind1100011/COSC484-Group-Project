@@ -1,7 +1,12 @@
 import React from "react";
+import Nav from "./nav";
 
 function Prof() {
-  return <div>Professor</div>;
+  return (
+    <div>
+      <Nav status='loggedIn' />
+    </div>
+  );
 }
 
 export default Prof;
