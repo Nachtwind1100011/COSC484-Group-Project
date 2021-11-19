@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useContext} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
+import AuthContext from "./auth/authContext";
 
 const buttonHoverStyle = {
   ":hover": {
@@ -10,6 +11,10 @@ const buttonHoverStyle = {
 };
 
 function NavBar(props) {
+
+  //access the context if the user is logged in or not
+  const {loggedIn} = useContext(AuthContext);
+  
   return (
     <div className='navbar'>
       <div className='nav-logo'>
@@ -19,7 +24,7 @@ function NavBar(props) {
         <div className='nav-pmp'>PMP</div>
       </div>
       <div className='flex-div'></div>
-      {props.status === "loggedIn" ? (
+      {loggedIn === true ? (
         <div className='link'>
           <Link to='/search' className='nav-bar-link'>
             Search
