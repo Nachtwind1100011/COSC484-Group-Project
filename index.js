@@ -4,6 +4,7 @@
 */
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const { Logger } = require('./middleware/Logger');
 const {DatabaseHandler} = require('./DatabaseHandler');
 const {Developer} = require('./developPass');
@@ -16,6 +17,22 @@ const MONGO_URL = process.env.MONGOURL || Developer.Mongo_Pass();
 
 //app and db
 let app = express();
+
+//allows cors and axios to make request 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+app.use(
+    cors({
+      origin: ["http://localhost:8080"],
+      //to allow cookies and other credentials from this origin...should see
+      //200 ok in network tab and also should see in localhost now from
+      //front end and backend having credentials true
+      credentials: false,
+    })
+  );
 
 
 //middleware 
