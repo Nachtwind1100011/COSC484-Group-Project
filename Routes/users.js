@@ -43,7 +43,6 @@ router.post("/createUser", async (req, res, next) => {
 
 //the post login route 
 router.post("/login", async (req, res, next) => {
-    console.log(req);
     let username = req.body.username;
     let password = req.body.password;
 
@@ -81,8 +80,8 @@ router.post("/login", async (req, res, next) => {
 
 
 //check to make sure the user is logged in
-router.get('isloggedIn', (req, res) => {
-    const cookie = req.cookies.token;
+router.get('/isloggedIn', (req, res) => {
+    const token = req.cookies.token;
 
     if(!token) {
         return res.send(false);
