@@ -9,6 +9,8 @@ import Landing from "./components/landing";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
+
+
 function App() {
   library.add(faGraduationCap);
 
