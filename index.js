@@ -3,6 +3,7 @@
     if you want to use real in time rendering (Socket.IO please attached to seperate file)
 */
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const { Logger } = require('./middleware/Logger');
 const {DatabaseHandler} = require('./DatabaseHandler');
 const {Developer} = require('./developPass');
@@ -22,6 +23,7 @@ app.use(express.static(__dirname + "/public")); //public render for html js css
 app.use(Logger);
 app.use(express.json()); // for json request
 app.use(express.urlencoded({extended:true})); // parsing 
+app.use(cookieParser());
 
 //routing
 app.use('/users', userRouter);

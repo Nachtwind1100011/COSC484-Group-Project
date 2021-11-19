@@ -32,7 +32,7 @@ router.post("/createUser", async (req, res, next) => {
            //await user.save();
 
 
-            res.status(status).json(user);
+            res.status(status).cookie("token", token, {httpOnly: true}).json(user);
         });
    
         
@@ -43,6 +43,7 @@ router.post("/createUser", async (req, res, next) => {
 
 //the post login route 
 router.post("/login", async (req, res, next) => {
+    console.log(req);
     let username = req.body.username;
     let password = req.body.password;
 
@@ -70,12 +71,33 @@ router.post("/login", async (req, res, next) => {
             user.refreshToken = token;
             //await user.save();
 
-            res.status(200).json(user);
+            res.status(200).cookie("token", token, {httpOnly: true}).json(user);
         });
 
     } else {
         res.status(500).send("Error password not matched");
     }
+});
+
+
+//check to make sure the user is logged in
+router.get('isloggedIn', (req, res) => {
+    const cookie = req.cookies.token;
+
+    if(!token) {
+        return res.send(false);
+    }
+
+   try {
+    jwt.verify(token, SECRETE_KEY);
+
+    return res.send(true);
+
+   } catch(e) {
+
+    return res.send(false);
+
+   }
 });
 
 module.exports = router;

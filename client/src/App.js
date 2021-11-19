@@ -14,6 +14,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import "./App.css";
+
+
 function App() {
   library.add(faGraduationCap, faSearch, faTimesCircle);
 
