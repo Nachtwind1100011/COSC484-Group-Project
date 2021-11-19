@@ -2,6 +2,15 @@ body {
   font-family: "Montserrat", sans-serif;
   background-color: #fafafa;
 }
+html,
+body,
+#root,
+.App {
+  height: 100%;
+}
+.flex-div {
+  flex: 1;
+}
 
 /* navbar */
 .navbar {
@@ -22,9 +31,6 @@ body {
   border-left: solid black 2px;
   font-weight: 700;
 }
-.flex-div {
-  flex: 1;
-}
 .link {
   display: flex;
 }
@@ -37,6 +43,69 @@ body {
   color: white;
   font: inherit;
 }
-/* :link Button:hover {
-  background-color: #ffde6a;
-} */
+
+/* Landing */
+.landing {
+  height: calc(60vh + 175px);
+  position: relative;
+  padding: calc(40vh - 205px) 50px 30px;
+}
+.landing-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #c4c4c4;
+  background-image: url("https://www.transparenttextures.com/patterns/lined-paper.png");
+  height: 40vh;
+  width: 100%;
+  min-height: 200px;
+  min-width: 375px;
+  z-index: -1;
+}
+.landing-content {
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.landing-logo {
+  border: solid pink 5px;
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 375px;
+  margin-top: 30px;
+}
+.landing-logo-sec {
+  flex: 1;
+  width: 375px;
+  height: 200px;
+  min-width: 375px;
+  border: solid #ffde6a 5px;
+  margin: 0 10px 10px;
+  background-color: #fafafa;
+}
+.landing-slogan {
+  margin: 40px auto;
+  font-style: italic;
+  max-width: 790px;
+  color: #606060;
+  font-weight: 500;
+}
+.landing-links {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 790px;
+  margin-top: 20px;
+}
+.landing-links * {
+  margin-bottom: 10px;
+}
+.landing-links Button {
+  font: inherit;
+  font-weight: 500;
+  height: 48px;
+}
+.landing-links-flex {
+  min-width: calc(100% - 730px);
+}

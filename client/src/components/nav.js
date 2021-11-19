@@ -32,14 +32,14 @@ function NavBar(props) {
           <Link to='/add' style={linkStyle}>
             Add Professor
           </Link>
-          <div>Sign out</div>
+          <div>Sign Out</div>
         </div>
       ) : props.status === "login" ? (
         <div className='link'>
           <div>New to PMP?</div>
           <Link to='/signup' style={linkStyle}>
             <Button variant='contained' sx={buttonHoverStyle}>
-              Sign up
+              Sign Up
             </Button>
           </Link>
         </div>
@@ -48,7 +48,7 @@ function NavBar(props) {
           <div>Already have an account?</div>
           <Link to='/login' style={linkStyle}>
             <Button variant='contained' sx={buttonHoverStyle}>
-              Sign in
+              Log In
             </Button>
           </Link>
         </div>
