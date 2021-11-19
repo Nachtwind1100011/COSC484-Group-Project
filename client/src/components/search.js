@@ -63,9 +63,15 @@ function Search() {
               onChange={handleChangeSearchMethod}
               disableUnderline
               sx={selectStyle}>
-              <MenuItem value={"Search By:"}>Search By:</MenuItem>
-              <MenuItem value={"lecture"}>Lecture Focused</MenuItem>
-              <MenuItem value={"textbook"}>Textbook Heavy</MenuItem>
+              <MenuItem value={"Search By:"} sx={selectStyle}>
+                Search By:
+              </MenuItem>
+              <MenuItem value={"lecture"} sx={selectStyle}>
+                Lecture Focused
+              </MenuItem>
+              <MenuItem value={"textbook"} sx={selectStyle}>
+                Textbook Heavy
+              </MenuItem>
             </Select>
           </FormControl>
         </div>

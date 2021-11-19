@@ -17,6 +17,7 @@ const buttonStyle = {
     flexGrow: 1,
   },
   "&.MuiButton-text": {
+    fontWeight: "700",
     color: "#ffde6a",
   },
   "&.MuiButton-contained": {

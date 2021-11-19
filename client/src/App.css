@@ -43,6 +43,14 @@ body,
   color: white;
   font: inherit;
 }
+.nav-bar-link {
+  text-decoration: none;
+  color: #606060;
+}
+.nav-bar-link:hover {
+  color: black;
+  cursor: pointer;
+}
 
 /* Landing */
 .landing {
@@ -149,4 +157,7 @@ body,
 }
 #search-bar-select {
   padding: 0 10px 0 16px;
+}
+.Mui-selected {
+  background-color: #ffde6a !important;
 }

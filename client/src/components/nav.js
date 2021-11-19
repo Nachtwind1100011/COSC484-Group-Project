@@ -3,11 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 
-const linkStyle = {
-  textDecoration: "none",
-  color: "#606060",
-};
-
 const buttonHoverStyle = {
   ":hover": {
     bgcolor: "#ffde6a",
@@ -26,18 +21,18 @@ function NavBar(props) {
       <div className='flex-div'></div>
       {props.status === "loggedIn" ? (
         <div className='link'>
-          <Link to='/search' style={linkStyle}>
+          <Link to='/search' className='nav-bar-link'>
             Search
           </Link>
-          <Link to='/add' style={linkStyle}>
+          <Link to='/add' className='nav-bar-link'>
             Add Professor
           </Link>
-          <div>Sign Out</div>
+          <div className='nav-bar-link'>Sign Out</div>
         </div>
       ) : props.status === "login" ? (
         <div className='link'>
           <div>New to PMP?</div>
-          <Link to='/signup' style={linkStyle}>
+          <Link to='/signup' className='nav-bar-link'>
             <Button variant='contained' sx={buttonHoverStyle}>
               Sign Up
             </Button>
@@ -46,7 +41,7 @@ function NavBar(props) {
       ) : (
         <div className='link'>
           <div>Already have an account?</div>
-          <Link to='/login' style={linkStyle}>
+          <Link to='/login' className='nav-bar-link'>
             <Button variant='contained' sx={buttonHoverStyle}>
               Log In
             </Button>
