@@ -124,7 +124,7 @@ body,
 }
 .search-bar {
   font: inherit;
-  margin: 0px auto 50px;
+  margin: 0px auto 30px;
   height: 48px;
   background-color: white;
   border: solid #c4c4c4 1px;
@@ -137,27 +137,41 @@ body,
 .search-bar > * {
   padding: 0 10px;
 }
-.search-bar input {
-  font: inherit;
-  border: none;
-  height: 24px;
-  flex: 1;
-  min-width: 40px;
-  font-size: 14px;
-}
-.search-bar input:focus {
-  outline: none;
-}
 .search-bar-icon {
   color: #c4c4c4;
 }
-.right-icon {
-  border-right: solid #c4c4c4 1px;
-  padding-right: 16px;
+.left-icon {
+  border-left: solid #c4c4c4 1px;
+  padding-left: 16px;
+}
+.clear-icon:hover {
+  color: #606060;
 }
 #search-bar-select {
   padding: 0 10px 0 16px;
 }
 .Mui-selected {
   background-color: #ffde6a !important;
+}
+.MuiAutocomplete-root {
+  flex: 1;
+  font-size: 14px;
+}
+.MuiAutocomplete-root fieldset {
+  border: none;
+  background-color: transparent !important;
+}
+.MuiAutocomplete-option:hover {
+  background-color: #ffde6a !important;
+}
+.search-university {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  font-size: 36px;
+  font-weight: 500;
+}
+.search-university > * {
+  margin: 0 10px;
 }

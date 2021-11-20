@@ -11,13 +11,13 @@ import {
   faGraduationCap,
   faSearch,
   faTimesCircle,
+  faUniversity,
 } from "@fortawesome/free-solid-svg-icons";
 
 import "./App.css";
 
-
 function App() {
-  library.add(faGraduationCap, faSearch, faTimesCircle);
+  library.add(faGraduationCap, faSearch, faTimesCircle, faUniversity);
 
   return (
     <BrowserRouter>
