@@ -1,8 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Button from "@mui/material/Button";
-// import AuthContext from "./auth/authContext";
 
 const buttonHoverStyle = {
   ":hover": {
@@ -11,26 +10,31 @@ const buttonHoverStyle = {
 };
 
 function NavBar(props) {
-  //access the context if the user is logged in or not
-  // const { loggedIn } = useContext(AuthContext);
-
   return (
     <div className='navbar'>
-      <div className='nav-logo'>
+      <Link to='/' className='nav-logo'>
         <div className='cap-icon'>
           <FontAwesomeIcon icon='graduation-cap' />
         </div>
         <div className='nav-pmp'>PMP</div>
-      </div>
+      </Link>
       <div className='flex-div'></div>
       {props.status === "loggedIn" ? (
         <div className='link'>
-          <Link to='/search' className='nav-bar-link'>
+          <NavLink
+            to={"/search"}
+            className={({ isActive }) =>
+              "nav-bar-link" + (isActive ? " nav-bar-link-active" : "")
+            }>
             Search
-          </Link>
-          <Link to='/add' className='nav-bar-link'>
+          </NavLink>
+          <NavLink
+            to={"/add"}
+            className={({ isActive }) =>
+              "nav-bar-link" + (isActive ? " nav-bar-link-active" : "")
+            }>
             Add Professor
-          </Link>
+          </NavLink>
           <div className='nav-bar-link'>Sign Out</div>
         </div>
       ) : props.status === "login" ? (
