@@ -5,9 +5,9 @@ const User = require('../models/User');
 let expect = require('chai').expect;
 
 //this is the development password
-const { Mongo_Pass } = require('../developPass');
+const { Developer } = require('../developPass');
 
-const MONGOURL = process.env.MONGOURL || Mongo_Pass();
+const MONGOURL = process.env.MONGOURL || Developer.Mongo_Pass();
 
 describe("DatabaseHandler", async () => {
     before(async () => {
@@ -20,8 +20,7 @@ describe("DatabaseHandler", async () => {
             password: pass,
             hashedPass: hashedPass
         }
-        this.dbHandler = new DatabaseHandler(MONGOURL);
-        await this.dbHandler.startDatabase();
+        await DatabaseHandler.startDatabase(MONGOURL);
     });
 
     after(async () => {
@@ -29,10 +28,12 @@ describe("DatabaseHandler", async () => {
     });
 
     it('DatabaseHandler createUser should return new user',async () => {
-        const newUser = await this.dbHandler.createUser(this.user.username, this.user.email, this.user.learningPreference, this.user.password);
+        const newUser = await DatabaseHandler.createUser(this.user.username, this.user.email, this.user.learningPreference, this.user.password);
+        return true;
     });
 
     it('DatabaseHandler should find a user', async () => {
-        const user = await this.dbHandler.getUser(this.user.username);
+        const user = await DatabaseHandler.getUser(this.user.username);
+        return true;
     });
 });
