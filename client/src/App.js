@@ -20,7 +20,6 @@ import "./App.css";
 function App() {
   library.add(faGraduationCap, faSearch, faTimesCircle, faUniversity);
   const { loggedIn } = useContext(AuthContext);
-  const testLoggedIn = true;
 
   return (
     <BrowserRouter>
@@ -29,13 +28,11 @@ function App() {
         <Route path='professors/*' element={<Prof />} />
         <Route
           path='login'
-          element={testLoggedIn ? <Navigate replace to='/search' /> : <Login />}
+          element={loggedIn ? <Navigate replace to='/search' /> : <Login />}
         />
         <Route
           path='signup'
-          element={
-            testLoggedIn ? <Navigate replace to='/search' /> : <SignUp />
-          }
+          element={loggedIn ? <Navigate replace to='/search' /> : <SignUp />}
         />
         <Route path='search' element={<Search />} />
         <Route path='add' element={<AddProf />} />
