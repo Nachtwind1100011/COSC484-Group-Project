@@ -20,17 +20,19 @@ let app = express();
 
 //allows cors and axios to make request 
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
   });
 app.use(
     cors({
-      origin: ["http://localhost:8080"],
+      origin: ["http://localhost:8080", "http://localhost:3000"],
       //to allow cookies and other credentials from this origin...should see
       //200 ok in network tab and also should see in localhost now from
       //front end and backend having credentials true
-      credentials: false,
+      credentials: true,
     })
   );
 

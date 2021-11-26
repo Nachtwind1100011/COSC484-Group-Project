@@ -11,7 +11,7 @@ function AuthContextProvider(props) {
     const [loggedIn, setLoggedIn] = useState(false);
 
     async function getLoggedIn() {
-      const loggedInRes = await axios.get("http://localhost:8080/users/isLoggedIn");
+      const loggedInRes = await axios.get("http://localhost:8080/users/isLoggedIn", {withCredentials: true});
       setLoggedIn(loggedInRes.data);
     }
 

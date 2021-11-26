@@ -45,7 +45,7 @@ router.post("/createUser", async (req, res, next) => {
 router.post("/login", async (req, res, next) => {
     let username = req.body.username;
     let password = req.body.password;
-
+  
     if(!username || !password) {
         return res.status(400).send("Error please fill out all fields");
     }
@@ -69,7 +69,7 @@ router.post("/login", async (req, res, next) => {
 
             user.refreshToken = token;
             //await user.save();
-
+            
             res.status(200).cookie("token", token, {httpOnly: true}).json(user);
         });
 
