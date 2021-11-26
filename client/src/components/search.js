@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Nav from "./nav";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import { Professors, Schools } from "./data";
 import Fuse from "fuse.js";
+import SelectForm from "./select";
+import Button from "@mui/material/Button";
 
 function Search() {
   // next search denotes next potential search
@@ -15,19 +14,32 @@ function Search() {
   const [nextSearchField, setNextSearchField] = useState("School");
   const [currSearch, setCurrSearch] = useState({
     value: "",
-    field: "",
+    option: "",
     method: "",
   });
+  const [res, setRes] = useState(Professors);
+  const [displayRes, setDisplayRes] = useState([]);
+  const [depts, setDepts] = useState([]);
+  const searchOptions = ["School", "Professor"];
+  const sortingOptions = ["Learning Preference", "Alphabetical"];
+  const userPreference = "Lecture Focused";
 
-  const selectStyle = {
+  const selectSearchFieldStyle = {
     width: "100px",
     boxShadow: "none",
     font: "inherit",
     fontSize: "14px",
   };
+  const selectFilterSortStyle = {
+    font: "inherit",
+    fontSize: "12px",
+    "& .MuiSvgIcon-root": {
+      color: "white",
+    },
+  };
 
-  function handleChangeSearchMethod(event) {
-    setNextSearchField(event.target.value);
+  function handleChangeSearchField(value) {
+    setNextSearchField(value);
   }
 
   function onSelectTag(event, val) {
@@ -37,7 +49,7 @@ function Search() {
       else {
         setCurrSearch({
           value: val,
-          field: "School",
+          option: "School",
           method: "select",
         });
       }
@@ -48,13 +60,46 @@ function Search() {
     if (event.key === "Enter") {
       const input = event.target.value;
       if (!input) return;
-      setCurrSearch({ value: input, field: nextSearchField, method: "Enter" });
+      setCurrSearch({ value: input, option: nextSearchField, method: "Enter" });
     }
   };
 
+  function handleChangeFilter(value) {
+    if (value === "All Departments") setDisplayRes(res);
+    else setDisplayRes(res.filter((prof) => prof.dept === value));
+  }
+
+  function handleChangeSort(value) {
+    function alphaSort(a, b) {
+      if (a.lname === b.lname) {
+        if (a.fname < b.fname) return -1;
+        else if (a.fname > b.fname) return 1;
+      } else {
+        if (a.lname < b.lname) return -1;
+        else if (a.lname > b.lname) return 1;
+      }
+      return 0;
+    }
+
+    if (value === "Alphabetical")
+      setDisplayRes(displayRes.slice(0).sort(alphaSort));
+    else
+      setDisplayRes(
+        displayRes.slice(0).sort((a, b) => {
+          if (
+            (a.teachingStyle === userPreference) ===
+            (b.teachingStyle === userPreference)
+          )
+            return alphaSort(a, b);
+          else return a.teachingStyle === userPreference ? -1 : 1;
+        })
+      );
+    console.log(displayRes);
+  }
+
   useEffect(() => {
     if (!currSearch.value) return;
-    if (currSearch.field === "School") {
+    if (currSearch.option === "School") {
       if (currSearch.method === "enter") {
         const fuse = new Fuse(Schools);
         const fuseRes = fuse.search(currSearch.value);
@@ -73,30 +118,24 @@ function Search() {
     }
   }, [currSearch]);
 
+  useEffect(() => {
+    setDepts([...new Set(res.map((prof) => prof.dept))]);
+    setDisplayRes(res);
+  }, [res]);
+
   return (
     <div>
       <Nav status='loggedIn' />
       <div className='search-content'>
         <div className='search-bar'>
-          <FormControl
-            id='search-bar-select'
+          <SelectForm
+            default='School'
             variant='standard'
-            sx={selectStyle}>
-            <Select
-              id='method'
-              value={nextSearchField}
-              label='Search By'
-              onChange={handleChangeSearchMethod}
-              disableUnderline
-              sx={selectStyle}>
-              <MenuItem value={"School"} sx={selectStyle}>
-                School
-              </MenuItem>
-              <MenuItem value={"Professor"} sx={selectStyle}>
-                Professor
-              </MenuItem>
-            </Select>
-          </FormControl>
+            sx={selectSearchFieldStyle}
+            id='search-bar-select'
+            handleChange={handleChangeSearchField}
+            items={searchOptions}
+          />
           <div className='search-bar-icon left-icon'>
             <FontAwesomeIcon icon='search' />
           </div>
@@ -119,12 +158,51 @@ function Search() {
             renderInput={(params) => <TextField {...params} />}
           />
         </div>
-        {currSearch.field === "School" && currSearch.method === "select" && (
+        {
+          /* currSearch.field === "School" && currSearch.method === "select" &&  */
           <div className='search-university'>
             <FontAwesomeIcon icon='university' />
             <div>{currSearch.value}</div>
           </div>
-        )}
+        }
+        <div className='search-res'>
+          <div className='search-res-stat'>{res.length} professors found</div>
+          <div className='flex-div'></div>
+          <div className='filter-sort'>
+            <SelectForm
+              default='All Departments'
+              variant='filled'
+              sx={selectFilterSortStyle}
+              selectSx={{
+                ...selectFilterSortStyle,
+                color: "white",
+              }}
+              class='filter-sort-select'
+              handleChange={handleChangeFilter}
+              items={["All Departments", ...depts]}
+            />
+            <div className='filter-sort-space'></div>
+            <SelectForm
+              default={sortingOptions[0]}
+              variant='filled'
+              sx={selectFilterSortStyle}
+              selectSx={{
+                ...selectFilterSortStyle,
+                color: "white",
+              }}
+              class='filter-sort-select'
+              handleChange={handleChangeSort}
+              items={sortingOptions}
+            />
+          </div>
+        </div>
+        <div key={Math.random() + Date.now()}>
+          {displayRes.map((prof) => (
+            <Button variant='text' key={prof.id}>
+              {prof.fname} {prof.lname}
+            </Button>
+          ))}
+        </div>
       </div>
     </div>
   );

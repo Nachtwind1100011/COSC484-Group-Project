@@ -2,7 +2,7 @@ const Professors = [
   {
     id: 1,
     fname: "John",
-    lname: "Doe",
+    lname: "Zoe",
     school: "Towson University",
     dept: "Computer & Information Science",
     teachingStyle: "Lecture Focused",
@@ -29,7 +29,7 @@ const Professors = [
     lname: "Wolf",
     school: "Pacific University",
     dept: "Art",
-    teachingStyle: "Lecture Focused",
+    teachingStyle: "Textbook Heavy",
     lecture: 20,
     textbook: 0,
     likes: 15,

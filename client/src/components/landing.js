@@ -35,7 +35,6 @@ const buttonStyle = {
 
 function Landing() {
   const { loggedIn } = useContext(AuthContext);
-  const testLoggedIn = true;
 
   return (
     <div className='landing'>
@@ -50,14 +49,12 @@ function Landing() {
           help you pick the professor that's just right for you!
         </div>
         <div className='landing-links'>
-          <Link
-            to={testLoggedIn ? "/search" : "/signup"}
-            style={containedStyle}>
+          <Link to={loggedIn ? "/search" : "/signup"} style={containedStyle}>
             <Button variant='contained' sx={buttonStyle}>
-              {testLoggedIn ? "Start Searching" : "Sign Up"}
+              {loggedIn ? "Start Searching" : "Sign Up"}
             </Button>
           </Link>
-          {!testLoggedIn && (
+          {!loggedIn && (
             <Link to='/login' style={textStyle} color='#ffde6a'>
               <Button variant='text' sx={buttonStyle}>
                 Log In

@@ -127,11 +127,13 @@ body,
 
 /* Search */
 .search-content {
-  margin: 50px;
+  margin: 50px 100px;
+}
+.search-content > * {
+  margin: 0 auto 30px;
 }
 .search-bar {
   font: inherit;
-  margin: 0px auto 30px;
   height: 48px;
   background-color: white;
   border: solid #c4c4c4 1px;
@@ -154,8 +156,16 @@ body,
 .clear-icon:hover {
   color: #606060;
 }
-#search-bar-select {
+#search-bar-select.MuiFormControl-root {
   padding: 0 10px 0 16px;
+}
+.filter-sort-select.MuiFormControl-root {
+  background-color: #606060;
+  border-radius: 5px;
+  width: 200px;
+}
+.filter-sort-select .MuiFilledInput-root .MuiSelect-select {
+  padding: 10px 42px 10px 20px !important;
 }
 .Mui-selected {
   background-color: #ffde6a !important;
@@ -173,7 +183,6 @@ body,
 }
 .search-university {
   display: flex;
-  margin: 0 auto;
   justify-content: center;
   align-items: center;
   font-size: 36px;
@@ -181,4 +190,23 @@ body,
 }
 .search-university > * {
   margin: 0 10px;
+}
+.search-res {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.search-res > * {
+  margin-bottom: 10px;
+}
+.filter-sort {
+  display: flex;
+  flex-wrap: wrap;
+  width: 410px;
+}
+.filter-sort > * {
+  margin-bottom: 10px !important;
+}
+.filter-sort-space {
+  width: 10px;
 }
