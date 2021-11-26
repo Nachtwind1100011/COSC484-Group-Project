@@ -19,7 +19,6 @@ function NavBar(props) {
 
   //access the context if the user is logged in or not
   const {loggedIn} = useContext(AuthContext);
-  
   return (
     <div className='navbar'>
       <div className='nav-logo'>
