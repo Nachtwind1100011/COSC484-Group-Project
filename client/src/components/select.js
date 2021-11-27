@@ -28,8 +28,8 @@ function SelectForm(props) {
         onChange={handleChange}
         disableUnderline
         sx={props.selectSx || props.sx}>
-        {props.items.map((item, i) => (
-          <MenuItem key={item.id || i} value={item} sx={props.sx}>
+        {props.items.map((item) => (
+          <MenuItem key={item.id || item} value={item} sx={props.sx}>
             {item}
           </MenuItem>
         ))}

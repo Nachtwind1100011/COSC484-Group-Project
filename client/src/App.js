@@ -13,19 +13,32 @@ import {
   faSearch,
   faTimesCircle,
   faUniversity,
+  faChalkboardTeacher,
+  faThumbsUp,
+  faThumbsDown,
+  faBook,
 } from "@fortawesome/free-solid-svg-icons";
 
 import "./App.css";
 
 function App() {
-  library.add(faGraduationCap, faSearch, faTimesCircle, faUniversity);
+  library.add(
+    faGraduationCap,
+    faSearch,
+    faTimesCircle,
+    faUniversity,
+    faChalkboardTeacher,
+    faThumbsUp,
+    faThumbsDown,
+    faBook
+  );
   const { loggedIn } = useContext(AuthContext);
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Landing />} />
-        <Route path='professors/*' element={<Prof />} />
+        <Route path='professors/:id' element={<Prof />} />
         <Route
           path='login'
           element={loggedIn ? <Navigate replace to='/search' /> : <Login />}

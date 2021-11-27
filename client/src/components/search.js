@@ -6,24 +6,29 @@ import TextField from "@mui/material/TextField";
 import { Professors, Schools } from "./data";
 import Fuse from "fuse.js";
 import SelectForm from "./select";
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
+import ProfDisplay from "./search-prof";
+import { useNavigate } from "react-router-dom";
+import SchoolDisplay from "./search-school";
 
 function Search() {
   // next search denotes next potential search
   // curr search denotes search on display
-  const [nextSearchField, setNextSearchField] = useState("School");
+  const [nextSearchOption, setNextSearchOption] = useState("School");
   const [currSearch, setCurrSearch] = useState({
     value: "",
     option: "",
     method: "",
   });
-  const [res, setRes] = useState(Professors);
-  const [displayRes, setDisplayRes] = useState([]);
+  const [res, setRes] = useState(Professors); // result from search
+  const [displayRes, setDisplayRes] = useState([]); // filtered result
+  const [displaySchools, setDisplaySchools] = useState(Schools);
   const [depts, setDepts] = useState([]);
   const [sortVal, setSortVal] = useState("Learning Preference");
   const searchOptions = ["School", "Professor"];
   const sortingOptions = ["Learning Preference", "Alphabetical"];
-  const userPreference = "Lecture Focused";
+  const navigate = useNavigate();
+  const userPreference = "Textbook Heavy";
 
   const selectSearchFieldStyle = {
     width: "100px",
@@ -33,27 +38,25 @@ function Search() {
   };
   const selectFilterSortStyle = {
     font: "inherit",
-    fontSize: "12px",
+    // fontSize: "12px",
     "& .MuiSvgIcon-root": {
       color: "white",
     },
   };
 
-  function handleChangeSearchField(value) {
-    setNextSearchField(value);
+  function handleChangeSearchField(id, value) {
+    setNextSearchOption(value);
   }
 
   function onSelectTag(event, val) {
     if (event.type === "click" && event.target.id.includes("input")) {
-      if (nextSearchField === "Professor")
-        console.log("go to professor with id " + val.id);
-      else {
+      if (nextSearchOption === "School") {
         setCurrSearch({
           value: val,
           option: "School",
           method: "select",
         });
-      }
+      } else navigate(`/professors/${val.id}`);
     }
   }
 
@@ -61,7 +64,11 @@ function Search() {
     if (event.key === "Enter") {
       const input = event.target.value;
       if (!input) return;
-      setCurrSearch({ value: input, option: nextSearchField, method: "Enter" });
+      setCurrSearch({
+        value: input,
+        option: nextSearchOption,
+        method: "Enter",
+      });
     }
   };
 
@@ -105,30 +112,46 @@ function Search() {
     }
   }
 
+  function handleClickSchool(school) {
+    setCurrSearch({
+      value: school,
+      option: "School",
+      method: "select",
+    });
+  }
+
   useEffect(() => {
     if (!currSearch.value) return;
     if (currSearch.option === "School") {
-      if (currSearch.method === "enter") {
+      if (currSearch.method === "Enter") {
         const fuse = new Fuse(Schools);
         const fuseRes = fuse.search(currSearch.value);
-        const displayRes = fuseRes.map((res) => res.item);
-        console.log(displayRes);
+        setRes(fuseRes.map((res) => res.item));
       } else {
-        console.log("fetch professors for " + currSearch.value);
+        setRes(
+          Professors.filter(
+            (professor) => professor.school === currSearch.value
+          )
+        );
       }
     } else {
       const fuse = new Fuse(Professors, {
         keys: ["fname", "lname"],
       });
       const fuseRes = fuse.search(currSearch.value);
-      const displayRes = fuseRes.map((res) => res.item);
-      console.log(displayRes);
+      setRes(fuseRes.map((res) => res.item));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currSearch]);
 
   useEffect(() => {
-    setDepts([...new Set(res.map((prof) => prof.dept))]);
-    setDisplayRes(res);
+    if (currSearch.option === "School" && currSearch.method === "Enter")
+      setDisplaySchools(res);
+    else {
+      setDepts([...new Set(res.map((prof) => prof.dept))]);
+      setDisplayRes(res);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [res]);
 
   return (
@@ -151,7 +174,7 @@ function Search() {
             id='search-input'
             freeSolo
             options={
-              nextSearchField === "School"
+              nextSearchOption === "School"
                 ? Schools
                 : Professors.map((option) => {
                     const modOption = {
@@ -166,53 +189,73 @@ function Search() {
             renderInput={(params) => <TextField {...params} />}
           />
         </div>
-        {
-          /* currSearch.field === "School" && currSearch.method === "select" &&  */
-          <div className='search-university'>
-            <FontAwesomeIcon icon='university' />
-            <div>{currSearch.value}</div>
+
+        {!currSearch.value ? null : currSearch.option === "School" &&
+          currSearch.method === "Enter" ? (
+          <div id='search-res-schools'>
+            <div className='center-text'>
+              {displaySchools.length} school(s) found matching '
+              {currSearch.value}'
+            </div>
+            {displaySchools.map((school) => (
+              <SchoolDisplay
+                key={school}
+                school={school}
+                handleClick={handleClickSchool}
+              />
+            ))}
           </div>
-        }
-        <div className='search-res'>
-          <div className='search-res-stat'>{res.length} professors found</div>
-          <div className='flex-div'></div>
-          <div className='filter-sort'>
-            <SelectForm
-              id='filter'
-              default='All Departments'
-              variant='filled'
-              sx={selectFilterSortStyle}
-              selectSx={{
-                ...selectFilterSortStyle,
-                color: "white",
-              }}
-              class='filter-sort-select'
-              handleChange={handleChangeFilterSort}
-              items={["All Departments", ...depts]}
-            />
-            <div className='filter-sort-space'></div>
-            <SelectForm
-              id='sort'
-              default={sortingOptions[0]}
-              variant='filled'
-              sx={selectFilterSortStyle}
-              selectSx={{
-                ...selectFilterSortStyle,
-                color: "white",
-              }}
-              class='filter-sort-select'
-              handleChange={handleChangeFilterSort}
-              items={sortingOptions}
-            />
+        ) : (
+          <div className='search-res'>
+            {currSearch.option === "School" && currSearch.method === "select" && (
+              <div className='search-res-university'>
+                <FontAwesomeIcon icon='university' />
+                <div>{currSearch.value}</div>
+              </div>
+            )}
+            <div className='search-res-filter-sort'>
+              <div className='search-res-stat'>
+                {res.length} professor(s) found matching '{currSearch.value}'
+              </div>
+              <div className='flex-div'></div>
+              {displayRes.length > 1 && (
+                <div className='filter-sort'>
+                  <SelectForm
+                    id='filter'
+                    default='All Departments'
+                    variant='filled'
+                    sx={selectFilterSortStyle}
+                    selectSx={{
+                      ...selectFilterSortStyle,
+                      color: "white",
+                    }}
+                    class='filter-sort-select'
+                    handleChange={handleChangeFilterSort}
+                    items={["All Departments", ...depts]}
+                  />
+                  <SelectForm
+                    id='sort'
+                    default={sortingOptions[0]}
+                    variant='filled'
+                    sx={selectFilterSortStyle}
+                    selectSx={{
+                      ...selectFilterSortStyle,
+                      color: "white",
+                    }}
+                    class='filter-sort-select'
+                    handleChange={handleChangeFilterSort}
+                    items={sortingOptions}
+                  />
+                </div>
+              )}
+            </div>
+            <div id='search-res-profs'>
+              {displayRes.map((prof) => (
+                <ProfDisplay key={prof.id} prof={prof} />
+              ))}
+            </div>
           </div>
-        </div>
-        <div key={Math.random() + Date.now()}>
-          {displayRes.map((prof) => (
-            <Button variant='text' key={prof.id}>
-              {prof.fname} {prof.lname}
-            </Button>
-          ))}
-        </div>
+        )}
       </div>
     </div>
   );

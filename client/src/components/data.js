@@ -5,9 +5,9 @@ const Professors = [
     lname: "Zoe",
     school: "Towson University",
     dept: "Computer & Information Science",
-    teachingStyle: "Lecture Focused",
-    lecture: 50,
-    textbook: 10,
+    teachingStyle: "Textbook Heavy",
+    lecture: 10,
+    textbook: 50,
     likes: 50,
     dislikes: 10,
   },
@@ -29,14 +29,14 @@ const Professors = [
     lname: "Wolf",
     school: "Pacific University",
     dept: "Art",
-    teachingStyle: "Textbook Heavy",
+    teachingStyle: "Lecture Focused",
     lecture: 20,
-    textbook: 0,
+    textbook: 2,
     likes: 15,
     dislikes: 5,
   },
 ];
 
-const Schools = ["Pacific Universtiy", "Towson University", "Towny Universtiy"];
+const Schools = ["Pacific University", "Towson University", "Towny Universtiy"];
 
 export { Professors, Schools };

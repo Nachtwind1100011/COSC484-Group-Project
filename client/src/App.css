@@ -162,7 +162,7 @@ body,
 .filter-sort-select.MuiFormControl-root {
   background-color: #606060;
   border-radius: 5px;
-  width: 200px;
+  width: 210px;
 }
 .filter-sort-select .MuiFilledInput-root .MuiSelect-select {
   padding: 10px 42px 10px 20px !important;
@@ -181,32 +181,113 @@ body,
 .MuiAutocomplete-option:hover {
   background-color: #ffde6a !important;
 }
-.search-university {
+
+.search-res {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+}
+.search-res > * {
+  width: inherit;
+}
+.search-res-university {
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 36px;
   font-weight: 500;
+  margin-bottom: 30px;
 }
-.search-university > * {
+.search-res-university > * {
   margin: 0 10px;
 }
-.search-res {
+.search-res-filter-sort {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-end;
+  font-size: 14px;
 }
-.search-res > * {
+.search-res-stat {
   margin-bottom: 10px;
 }
 .filter-sort {
   display: flex;
   flex-wrap: wrap;
-  width: 410px;
+  width: 430px;
+  justify-content: space-between;
 }
 .filter-sort > * {
   margin-bottom: 10px !important;
 }
-.filter-sort-space {
-  width: 10px;
+.filter-sort:nth-child(1) {
+  margin-right: 10px;
+}
+#search--res-profs {
+  display: flex;
+  flex-direction: column;
+}
+.search-prof {
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  margin-bottom: 16px;
+  padding: 1rem;
+  color: black;
+  text-decoration: none;
+}
+.search-prof:hover {
+  box-shadow: 0 0 5px #ffde6a;
+}
+.search-prof-icon {
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  width: 4rem;
+}
+.prof-info-name {
+  font-weight: 700;
+}
+.prof-info-name,
+.prof-info-background {
+  margin-bottom: 4px;
+}
+.prof-info-rating,
+.prof-info-background {
+  display: flex;
+  flex-wrap: wrap;
+}
+.prof-info-likes,
+.prof-info-style {
+  display: flex;
+}
+.prof-info-background > *,
+.prof-info-score > *,
+.prof-info-likes > *,
+.prof-info-style > * {
+  padding-right: 10px;
+}
+#search-res-schools > * {
+  margin-bottom: 16px;
+}
+.search-res-school {
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  width: calc(inherit-32px);
+}
+.search-res-school:hover {
+  background-color: #ffde6a;
+  cursor: pointer;
+}
+.search-res-school > * {
+  margin-right: 16px;
+  font-weight: 500;
+}
+.center-text {
+  text-align: center;
 }
