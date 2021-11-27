@@ -4,16 +4,17 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
 function SelectForm(props) {
-  const [val, setVal] = useState(props.default);
+  const [value, setValue] = useState(props.default);
+  const id = props.id;
 
   function handleChange(event) {
-    setVal(event.target.value);
+    setValue(event.target.value);
   }
 
   useEffect(() => {
-    props.handleChange(val);
+    props.handleChange(id, value);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [val]);
+  }, [value]);
 
   return (
     <FormControl
@@ -23,7 +24,7 @@ function SelectForm(props) {
       sx={props.sx}>
       <Select
         id={props.id}
-        value={val}
+        value={value}
         onChange={handleChange}
         disableUnderline
         sx={props.selectSx || props.sx}>

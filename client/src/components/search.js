@@ -20,6 +20,7 @@ function Search() {
   const [res, setRes] = useState(Professors);
   const [displayRes, setDisplayRes] = useState([]);
   const [depts, setDepts] = useState([]);
+  const [sortVal, setSortVal] = useState("Learning Preference");
   const searchOptions = ["School", "Professor"];
   const sortingOptions = ["Learning Preference", "Alphabetical"];
   const userPreference = "Lecture Focused";
@@ -65,11 +66,11 @@ function Search() {
   };
 
   function handleChangeFilter(value) {
-    if (value === "All Departments") setDisplayRes(res);
-    else setDisplayRes(res.filter((prof) => prof.dept === value));
+    if (value === "All Departments") return res;
+    else return res.filter((prof) => prof.dept === value);
   }
 
-  function handleChangeSort(value) {
+  function handleChangeSort(arr, value) {
     function alphaSort(a, b) {
       if (a.lname === b.lname) {
         if (a.fname < b.fname) return -1;
@@ -81,20 +82,27 @@ function Search() {
       return 0;
     }
 
-    if (value === "Alphabetical")
-      setDisplayRes(displayRes.slice(0).sort(alphaSort));
+    if (value === "Alphabetical") arr = arr.slice(0).sort(alphaSort);
     else
-      setDisplayRes(
-        displayRes.slice(0).sort((a, b) => {
-          if (
-            (a.teachingStyle === userPreference) ===
-            (b.teachingStyle === userPreference)
-          )
-            return alphaSort(a, b);
-          else return a.teachingStyle === userPreference ? -1 : 1;
-        })
-      );
-    console.log(displayRes);
+      arr = arr.slice(0).sort((a, b) => {
+        if (
+          (a.teachingStyle === userPreference) ===
+          (b.teachingStyle === userPreference)
+        )
+          return alphaSort(a, b);
+        else return a.teachingStyle === userPreference ? -1 : 1;
+      });
+    return arr;
+  }
+
+  function handleChangeFilterSort(name, value) {
+    // name is 'filter' or 'sort'
+    if (name === "sort") {
+      setSortVal(value);
+      setDisplayRes(handleChangeSort(displayRes, value));
+    } else {
+      setDisplayRes(handleChangeSort(handleChangeFilter(value), sortVal));
+    }
   }
 
   useEffect(() => {
@@ -170,6 +178,7 @@ function Search() {
           <div className='flex-div'></div>
           <div className='filter-sort'>
             <SelectForm
+              id='filter'
               default='All Departments'
               variant='filled'
               sx={selectFilterSortStyle}
@@ -178,11 +187,12 @@ function Search() {
                 color: "white",
               }}
               class='filter-sort-select'
-              handleChange={handleChangeFilter}
+              handleChange={handleChangeFilterSort}
               items={["All Departments", ...depts]}
             />
             <div className='filter-sort-space'></div>
             <SelectForm
+              id='sort'
               default={sortingOptions[0]}
               variant='filled'
               sx={selectFilterSortStyle}
@@ -191,7 +201,7 @@ function Search() {
                 color: "white",
               }}
               class='filter-sort-select'
-              handleChange={handleChangeSort}
+              handleChange={handleChangeFilterSort}
               items={sortingOptions}
             />
           </div>
