@@ -1,13 +1,7 @@
-import React, {useContext} from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Button from "@mui/material/Button";
-import AuthContext from "./auth/authContext";
-
-const linkStyle = {
-  textDecoration: "none",
-  color: "#606060",
-};
 
 const buttonHoverStyle = {
   ":hover": {
@@ -16,32 +10,37 @@ const buttonHoverStyle = {
 };
 
 function NavBar(props) {
-
-  //access the context if the user is logged in or not
-  const {loggedIn} = useContext(AuthContext);
   return (
     <div className='navbar'>
-      <div className='nav-logo'>
+      <Link to='/' className='nav-logo'>
         <div className='cap-icon'>
           <FontAwesomeIcon icon='graduation-cap' />
         </div>
         <div className='nav-pmp'>PMP</div>
-      </div>
+      </Link>
       <div className='flex-div'></div>
-      {loggedIn === true ? (
+      {props.status === "loggedIn" ? (
         <div className='link'>
-          <Link to='/search' style={linkStyle}>
+          <NavLink
+            to={"/search"}
+            className={({ isActive }) =>
+              "nav-bar-link" + (isActive ? " nav-bar-link-active" : "")
+            }>
             Search
-          </Link>
-          <Link to='/add' style={linkStyle}>
+          </NavLink>
+          <NavLink
+            to={"/add"}
+            className={({ isActive }) =>
+              "nav-bar-link" + (isActive ? " nav-bar-link-active" : "")
+            }>
             Add Professor
-          </Link>
-          <div>Sign Out</div>
+          </NavLink>
+          <div className='nav-bar-link'>Sign Out</div>
         </div>
       ) : props.status === "login" ? (
         <div className='link'>
           <div>New to PMP?</div>
-          <Link to='/signup' style={linkStyle}>
+          <Link to='/signup' className='nav-bar-link'>
             <Button variant='contained' sx={buttonHoverStyle}>
               Sign Up
             </Button>
@@ -50,7 +49,7 @@ function NavBar(props) {
       ) : (
         <div className='link'>
           <div>Already have an account?</div>
-          <Link to='/login' style={linkStyle}>
+          <Link to='/login' className='nav-bar-link'>
             <Button variant='contained' sx={buttonHoverStyle}>
               Log In
             </Button>

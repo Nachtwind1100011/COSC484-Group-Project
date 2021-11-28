@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
+import AuthContext from "./auth/authContext";
 
 const containedStyle = {
   textDecoration: "none",
@@ -17,6 +18,7 @@ const buttonStyle = {
     flexGrow: 1,
   },
   "&.MuiButton-text": {
+    fontWeight: "700",
     color: "#ffde6a",
   },
   "&.MuiButton-contained": {
@@ -32,6 +34,8 @@ const buttonStyle = {
 };
 
 function Landing() {
+  const { loggedIn } = useContext(AuthContext);
+
   return (
     <div className='landing'>
       <div className='landing-top'></div>
@@ -45,16 +49,18 @@ function Landing() {
           help you pick the professor that's just right for you!
         </div>
         <div className='landing-links'>
-          <Link to='/signup' style={containedStyle}>
+          <Link to={loggedIn ? "/search" : "/signup"} style={containedStyle}>
             <Button variant='contained' sx={buttonStyle}>
-              Sign Up
+              {loggedIn ? "Start Searching" : "Sign Up"}
             </Button>
           </Link>
-          <Link to='/login' style={textStyle} color='#ffde6a'>
-            <Button variant='text' sx={buttonStyle}>
-              Log In
-            </Button>
-          </Link>
+          {!loggedIn && (
+            <Link to='/login' style={textStyle} color='#ffde6a'>
+              <Button variant='text' sx={buttonStyle}>
+                Log In
+              </Button>
+            </Link>
+          )}
           <div className='flex-div landing-links-flex'></div>
         </div>
       </div>

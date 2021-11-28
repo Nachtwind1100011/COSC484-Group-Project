@@ -12,6 +12,7 @@
   "author": "Dylan Kelly",
   "license": "ISC",
   "dependencies": {
+    "@mui/styles": "^5.1.1",
     "bcrypt": "^5.0.1",
     "chai": "^4.3.4",
     "cookie-parser": "^1.4.6",
