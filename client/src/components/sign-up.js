@@ -20,7 +20,7 @@ function SignUp() {
       alert("Passwords do not match");
     } else {
       const login = await axios.post("http://localhost:8080/users/createUser", {username, email, learningPreference, password}, {withCredentials: true});
-      sessionStorage.setItem("user", login.data);
+      sessionStorage.setItem("user", JSON.stringify(login.data))
       await getLoggedIn();
       nav("/search");
     }
