@@ -20,10 +20,12 @@ function Login() {
     e.preventDefault();
     try {
       const login = await axios.post("http://localhost:8080/users/login", {username, password}, {withCredentials: true});
+
+      //set the user object
       sessionStorage.setItem("user", JSON.stringify(login.data));
-      let user = JSON.parse(sessionStorage.getItem('user'));
-      console.log(user.learningPreference);
-      await getLoggedIn();
+
+      await getLoggedIn(); //log in the user
+
       nav("/search");
     } catch(error) {
       setErrorDisplay("block");
