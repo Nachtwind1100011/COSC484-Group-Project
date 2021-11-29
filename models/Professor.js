@@ -5,18 +5,32 @@
 const mongoose = require('mongoose');
 
 const professorSchema = new mongoose.Schema({ 
-    profesorName: {
+    fname: {
         type: String,
-        required: [true, "add professor name"]
+        required: [true, "add first name"]
     },
-    teachingStyle: {
+    lname: {
         type: String,
-        require: [true, "add teaching style"]
+        required: [true, "add last name"]
+    },
+    school: {
+        type: String,
+        require: [true, "add school of employment"]
+    },
+    department: {
+        type: Array,
+        require: [true, "add department(s)"]
+    },
+    textbook: {
+        type: Number,
+    },
+    lecture: {
+        type: Number,
     },
     likes: {
         type: Number
     },
-    dislike: {
+    dislikes: {
         type: Number
     }
 });
