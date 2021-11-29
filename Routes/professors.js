@@ -11,14 +11,13 @@ router.post("/createProfessor", async (req, res, next) => {
     let fname = req.body.fname;
     let lname = req.body.lname;
     let school = req.body.school;
-    let teachingStyle = req.body.teachingStyle;
     let department =  req.body.department;
 
-    if (!fname || !lname || !school || !teachingStyle || !department) {
+    if (!fname || !lname || !school || !department) {
         return res.status(400).send("Error please fill out all fields");
     }
 
-    let status = await DatabaseHandler.createProfessor(fname, lname, teachingStyle, school, department);
+    let status = await DatabaseHandler.createProfessor(fname, lname, school, department);
     if(status == 201) {
 
         res.status(status).send("Professor successfully added");
