@@ -291,3 +291,22 @@ body,
 .center-text {
   text-align: center;
 }
+
+/* forms */
+#login-content,
+#signup-content {
+  max-width: 420px;
+  margin: 50px auto;
+  text-align: left;
+}
+form {
+  display: flex;
+  flex-direction: column;
+}
+form .MuiButton-root,
+form .MuiOutlinedInput-root {
+  margin-bottom: 20px;
+}
+input.MuiOutlinedInput-input {
+  background-color: white !important;
+}
