@@ -30,6 +30,10 @@ function Search() {
   const navigate = useNavigate();
   const userPreference = "Textbook Heavy";
 
+  // will be implemented
+  // let user = JSON.parse(sessionStorage.getItem("user"));
+  // userPreference = user.learningPreference;
+
   const selectSearchFieldStyle = {
     width: "100px",
     boxShadow: "none",
