@@ -6,10 +6,10 @@ import TextField from "@mui/material/TextField";
 import { Professors, Schools } from "./data";
 import Fuse from "fuse.js";
 import SelectForm from "./select";
-// import Button from "@mui/material/Button";
-import ProfDisplay from "./search-prof";
+import ProfDisplay from "./prof-info";
 import { useNavigate } from "react-router-dom";
 import SchoolDisplay from "./search-school";
+import { Link } from "react-router-dom";
 
 function Search() {
   // next search denotes next potential search
@@ -29,6 +29,10 @@ function Search() {
   const sortingOptions = ["Learning Preference", "Alphabetical"];
   const navigate = useNavigate();
   const userPreference = "Textbook Heavy";
+
+  // will be implemented
+  // let user = JSON.parse(sessionStorage.getItem("user"));
+  // userPreference = user.learningPreference;
 
   const selectSearchFieldStyle = {
     width: "100px",
@@ -56,7 +60,7 @@ function Search() {
           option: "School",
           method: "select",
         });
-      } else navigate(`/professors/${val.id}`);
+      } else navigate(`/professors?id=${val.id}`);
     }
   }
 
@@ -251,7 +255,12 @@ function Search() {
             </div>
             <div id='search-res-profs'>
               {displayRes.map((prof) => (
-                <ProfDisplay key={prof.id} prof={prof} />
+                <Link
+                  to={`/professors?id=${prof.id}`}
+                  className='search-res-link'
+                  key={prof.id}>
+                  <ProfDisplay prof={prof} />
+                </Link>
               ))}
             </div>
           </div>

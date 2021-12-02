@@ -38,7 +38,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Landing />} />
-        <Route path='professors/:id' element={<Prof />} />
+        <Route path='professors' element={<Prof />} />
         <Route
           path='login'
           element={loggedIn ? <Navigate replace to='/search' /> : <Login />}

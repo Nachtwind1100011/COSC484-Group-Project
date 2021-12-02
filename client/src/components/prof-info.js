@@ -1,6 +1,5 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
 
 function ProfDisplay(props) {
   const rating =
@@ -8,7 +7,7 @@ function ProfDisplay(props) {
       (props.prof.likes / (props.prof.likes + props.prof.dislikes)) * 50
     ) / 10;
   return (
-    <Link to={`/professors/${props.prof.id}`} className='search-prof'>
+    <div className='prof'>
       <div className='prof-info'>
         <div className='prof-info-name'>
           {props.prof.fname} {props.prof.lname}
@@ -47,7 +46,7 @@ function ProfDisplay(props) {
           <FontAwesomeIcon icon='book' />
         )}
       </div>
-    </Link>
+    </div>
   );
 }
 

@@ -227,8 +227,10 @@ body,
   display: flex;
   flex-direction: column;
 }
-.search-prof {
-  background-color: white;
+.search-res-link {
+  text-decoration: none;
+}
+.prof {
   border-radius: 5px;
   display: flex;
   margin-bottom: 16px;
@@ -236,7 +238,10 @@ body,
   color: black;
   text-decoration: none;
 }
-.search-prof:hover {
+#search-res-profs .prof {
+  background-color: white;
+}
+#search-res-profs .prof:hover {
   box-shadow: 0 0 5px #ffde6a;
 }
 .search-prof-icon {
@@ -290,4 +295,54 @@ body,
 }
 .center-text {
   text-align: center;
+}
+
+/* forms */
+#login-content,
+#signup-content,
+#add-content {
+  max-width: 420px;
+  margin: 50px auto;
+  text-align: left;
+}
+form {
+  display: flex;
+  flex-direction: column;
+}
+.form .MuiButton-root,
+.form .MuiOutlinedInput-root {
+  margin-bottom: 20px;
+  background-color: white;
+}
+.form.MuiOutlinedInput-root {
+  background-color: white !important;
+}
+.form.MuiInputBase-root {
+  background-color: white !important;
+}
+.form .MuiAutocomplete-root fieldset {
+  border: 1px solid rgba(0, 0, 0, 0.23);
+}
+
+/* prof */
+#prof-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 60px;
+}
+#prof-content > * {
+  max-width: 900px;
+}
+#prof-content .prof {
+  width: 100%;
+}
+#prof-content .prof-info-name {
+  font-size: 36px;
+}
+#prof-content .prof-info > * {
+  margin-bottom: 10px;
+}
+#prof-content .search-prof-icon {
+  font-size: 80px;
 }

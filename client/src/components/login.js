@@ -1,25 +1,26 @@
-import React, {useState, useContext} from "react";
-import {useNavigate} from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import Nav from "./nav";
-import axios from 'axios';
+import axios from "axios";
 import AuthContext from "./auth/authContext";
+import { TextField, Button } from "@mui/material";
+import { FormStyle } from "../styles";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorDisplay, setErrorDisplay] = useState("none");
-  const {getLoggedIn} = useContext(AuthContext);
+  const { getLoggedIn } = useContext(AuthContext);
   let nav = useNavigate();
-
-  const centerStyle = {
-    textAlign: 'center'
-  }
-
 
   async function tryLogin(e) {
     e.preventDefault();
     try {
-      const login = await axios.post("http://localhost:8080/users/login", {username, password}, {withCredentials: true});
+      const login = await axios.post(
+        "http://localhost:8080/users/login",
+        { username, password },
+        { withCredentials: true }
+      );
 
       //set the user object
       sessionStorage.setItem("user", JSON.stringify(login.data));
@@ -27,23 +28,44 @@ function Login() {
       await getLoggedIn(); //log in the user
 
       nav("/search");
-    } catch(error) {
+    } catch (error) {
       setErrorDisplay("block");
     }
   }
 
   return (
-    <div style={centerStyle}>
+    <div>
       <Nav status='login' />
-      <h1>Login</h1>
-      <form onSubmit={tryLogin}>
-        <label htmlFor="username">Username: </label>
-        <input type="text" name="username" onChange={(e) => setUsername(e.target.value)} value={username} /> <br /> <br />
-        <label htmlFor="password">Password: </label>
-        <input type="password" name="password" onChange={(e) => setPassword(e.target.value)} value={password} /> <br /> <br />
-        <input type="submit" value="Submit" />
-      </form>
-      <span className="error" style={{display: errorDisplay, color: 'red'}}>Invalid Username or password</span>
+      <div id='login-content' className='form'>
+        <h1>Welcome Back</h1>
+        <form onSubmit={tryLogin}>
+          <TextField
+            required
+            name='username'
+            label='Username'
+            variant='outlined'
+            onChange={(e) => setUsername(e.target.value)}
+            value={username}
+            sx={FormStyle}
+          />
+          <TextField
+            required
+            type='password'
+            name='password'
+            label='Password'
+            variant='outlined'
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            sx={FormStyle}
+          />
+          <Button variant='contained' type='submit' sx={FormStyle}>
+            Sign In
+          </Button>
+        </form>
+        <span className='error' style={{ display: errorDisplay, color: "red" }}>
+          Invalid username or password
+        </span>
+      </div>
     </div>
   );
 }
