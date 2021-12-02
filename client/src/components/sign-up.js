@@ -3,7 +3,14 @@ import { useNavigate } from "react-router-dom";
 import Nav from "./nav";
 import axios from "axios";
 import AuthContext from "./auth/authContext";
-import { TextField, Button, Select, MenuItem } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+} from "@mui/material";
 import { FormStyle } from "../styles";
 
 const learningPreferences = ["Textbook", "Lecture"];
@@ -46,9 +53,9 @@ function SignUp() {
   return (
     <div>
       <Nav />
-      <div id='signup-content'>
+      <div id='signup-content' className='form'>
         <h1>Create Account</h1>
-        <form onSubmit={trySignup} style={formStyle}>
+        <form onSubmit={trySignup}>
           <TextField
             required
             name='username'
@@ -68,18 +75,24 @@ function SignUp() {
             value={email}
             sx={FormStyle}
           />
-          <Select
-            value={learningPreference}
-            onChange={(e) => setLearningPref(e.target.value)}
-            disableUnderline
-            sx={FormStyle}>
-            {learningPreferences.map((item) => (
-              <MenuItem key={item} value={item} sx={formStyle}>
-                {item}
-              </MenuItem>
-            ))}
-          </Select>
-
+          <FormControl>
+            <InputLabel id='learning-pref-label'>
+              Learning Preference
+            </InputLabel>
+            <Select
+              labelId='learning-pref-label'
+              label='Learning Preference'
+              value={learningPreference}
+              onChange={(e) => setLearningPref(e.target.value)}
+              // disableUnderline
+              sx={FormStyle}>
+              {learningPreferences.map((item) => (
+                <MenuItem key={item} value={item} sx={formStyle}>
+                  {item}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <TextField
             required
             type='password'
@@ -97,7 +110,7 @@ function SignUp() {
             label='Confirm Password'
             variant='outlined'
             onChange={(e) => setConfirmPass(e.target.value)}
-            value={password}
+            value={confirmPass}
             sx={FormStyle}
           />
           <Button variant='contained' type='submit' sx={FormStyle}>
@@ -105,7 +118,7 @@ function SignUp() {
           </Button>
         </form>
         <span className='error' style={{ display: errorDisplay, color: "red" }}>
-          That Username is Taken. Please try Another.
+          The username is taken. Please try another.
         </span>
       </div>
     </div>

@@ -36,7 +36,7 @@ function Login() {
   return (
     <div>
       <Nav status='login' />
-      <div id='login-content'>
+      <div id='login-content' className='form'>
         <h1>Welcome Back</h1>
         <form onSubmit={tryLogin}>
           <TextField

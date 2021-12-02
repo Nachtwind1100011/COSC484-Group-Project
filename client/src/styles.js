@@ -9,7 +9,16 @@ const FormStyle = {
   },
   "&.MuiOutlinedInput-root": {
     textAlign: "left",
+    backgroundColor: "white !important",
+  },
+  "&.MuiAutocomplete-inputRoot": {
     backgroundColor: "white",
+  },
+  "&.MuiAutocomplete-root fieldset": {
+    border: "1px solid grey !important",
+  },
+  "&.MuiInputBase-root": {
+    backgroundColor: "white !important",
   },
 };
 
