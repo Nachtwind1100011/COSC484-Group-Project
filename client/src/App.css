@@ -227,8 +227,10 @@ body,
   display: flex;
   flex-direction: column;
 }
-.search-prof {
-  background-color: white;
+.search-res-link {
+  text-decoration: none;
+}
+.prof {
   border-radius: 5px;
   display: flex;
   margin-bottom: 16px;
@@ -236,7 +238,10 @@ body,
   color: black;
   text-decoration: none;
 }
-.search-prof:hover {
+#search-res-profs .prof {
+  background-color: white;
+}
+#search-res-profs .prof:hover {
   box-shadow: 0 0 5px #ffde6a;
 }
 .search-prof-icon {
@@ -317,4 +322,27 @@ form {
 }
 .form .MuiAutocomplete-root fieldset {
   border: 1px solid rgba(0, 0, 0, 0.23);
+}
+
+/* prof */
+#prof-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 60px;
+}
+#prof-content > * {
+  max-width: 900px;
+}
+#prof-content .prof {
+  width: 100%;
+}
+#prof-content .prof-info-name {
+  font-size: 36px;
+}
+#prof-content .prof-info > * {
+  margin-bottom: 10px;
+}
+#prof-content .search-prof-icon {
+  font-size: 80px;
 }

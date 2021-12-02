@@ -26,7 +26,7 @@ function AddProf() {
   }, []);
 
   useEffect(() => {
-    setSchools([...new Set(Professors.map((prof) => prof.school))]);
+    setSchools([...new Set(professors.map((prof) => prof.school))]);
   }, [professors]);
 
   useEffect(() => {
@@ -113,7 +113,7 @@ function AddProf() {
             onChange={(e) => setDept1(e.target.value)}
             onBlur={(e) => setDept1(e.target.value)}
             renderInput={(params) => (
-              <TextField {...params} label='Department' required />
+              <TextField {...params} label='1st Department' required />
             )}
           />
           <Autocomplete
