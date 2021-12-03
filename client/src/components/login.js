@@ -20,7 +20,6 @@ function Login() {
     e.preventDefault();
     try {
       const login = await axios.post("http://localhost:8080/users/login", {username, password}, {withCredentials: true});
-
       //set the user object
       sessionStorage.setItem("user", JSON.stringify(login.data));
 
