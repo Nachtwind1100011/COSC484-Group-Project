@@ -7,7 +7,6 @@ const SECRETE_KEY = process.env.SECRETE || Developer.Secrete_Key();
 
 //the post request for creating a new professor
 router.post("/createProfessor", async (req, res, next) => {
-  console.log(req.body);
   let fname = req.body.fname;
   let lname = req.body.lname;
   let school = req.body.school;
@@ -29,5 +28,17 @@ router.post("/createProfessor", async (req, res, next) => {
     res.status(status).send("Error with creation status: " + status);
   }
 });
+
+
+router.get("/allProfessors", async (req, res) => {
+  console.log("End point hit");
+  let professorJSON = await DatabaseHandler.getAllProfessors();
+  if (professorJSON) {
+    res.status(200).json(professorJSON);
+  } else {
+    res.status(500).send("Error sending all professors");
+  }
+});
+
 
 module.exports = router;
