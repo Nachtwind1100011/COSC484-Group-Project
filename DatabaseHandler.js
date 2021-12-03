@@ -1,3 +1,5 @@
+console.log(":::DatabaseHandler.js line 1");
+
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const User = require('./models/User');

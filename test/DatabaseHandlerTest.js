@@ -1,4 +1,6 @@
 //testing for database
+console.log("::::DatabaseHandlerTest.js line 2");
+
 const {DatabaseHandler} = require('../DatabaseHandler');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');

@@ -1,19 +1,35 @@
+console.log(":::users.js line 1");
 const express = require('express');
 let router = express.Router();
 const {DatabaseHandler} = require('../DatabaseHandler');
 const jwt = require("jsonwebtoken");
 const {Developer} = require('../developPass');
+const { EventStuff } = require('../middleware/EventLogger');
+
+
 const SECRETE_KEY = process.env.SECRETE || Developer.Secrete_Key();
+// var fs = require('fs');
+
+
+console.log(":::users.js line 8");
+
+//official
+
 
 
 //the post request for creating a new user 
 router.post("/createUser", async (req, res, next) => {
+    console.log("users.js line 13");
+
+    EventStuff.funOne();
+
     let username = req.body.username;
     let email = req.body.email;
     let learningPreference = req.body.learningPreference;
     let password =  req.body.password;
 
     if (!username || !email || !learningPreference || !password) {
+        // EventLogger();
         return res.status(400).send("Error please fill out all fields");
     }
 
@@ -43,6 +59,8 @@ router.post("/createUser", async (req, res, next) => {
 
 //the post login route 
 router.post("/login", async (req, res, next) => {
+    console.log("users.js line 50");
+
     let username = req.body.username;
     let password = req.body.password;
 
