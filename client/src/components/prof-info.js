@@ -17,8 +17,9 @@ function ProfDisplay(props) {
           <span>{props.prof.school}</span>
           <span>|</span>
           <span>
-            {props.prof.dept[0]}
-            {props.prof.dept.length > 1 && ", " + props.prof.dept[1]}
+            {props.prof.department[0]}
+            {props.prof.department.length > 1 &&
+              ", " + props.prof.department[1]}
           </span>
         </div>
 

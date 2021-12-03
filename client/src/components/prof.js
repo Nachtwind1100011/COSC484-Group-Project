@@ -11,7 +11,7 @@ function Prof() {
 
   useEffect(() => {
     //get prof by id
-    setProf(Professors.find((prof) => prof.id === id));
+    setProf(Professors.find((prof) => prof._id === id));
     //get comments by prof id
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
