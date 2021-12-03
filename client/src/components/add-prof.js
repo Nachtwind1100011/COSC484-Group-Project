@@ -3,7 +3,6 @@ import Nav from "./nav";
 import axios from "axios";
 import { TextField, Button, Autocomplete } from "@mui/material";
 import { FormStyle } from "../styles";
-import { Professors } from "./data";
 
 function AddProf() {
   const [fname, setFName] = useState("");
@@ -36,7 +35,7 @@ function AddProf() {
     let tempDepts = [];
     professors
       .filter((professor) => professor.school === school)
-      .forEach((prof) => tempDepts.push(...prof.dept));
+      .forEach((prof) => tempDepts.push(...prof.department));
     setDepts([...new Set(tempDepts)]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [school]);

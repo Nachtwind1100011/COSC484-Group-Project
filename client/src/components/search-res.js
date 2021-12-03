@@ -24,7 +24,8 @@ function SearchRes() {
   const [isLoading, setIsLoading] = useState(true);
   const sortingOptions = ["Learning Preference", "Alphabetical"];
   const user = JSON.parse(sessionStorage.getItem("user"));
-  const userPreference = user.learningPreference;
+  //   const userPreference = user.learningPreference;
+  const userPreference = "Textbook";
   const props = React.useContext(Context);
   const [professors, setProfessors] = useState(props.professors);
   const [schools, setSchools] = useState(props.schools);
@@ -87,7 +88,7 @@ function SearchRes() {
     setSortKey(new Date().getTime() + 1);
 
     let tempDepts = [];
-    res.forEach((prof) => tempDepts.push(...prof.dept));
+    res.forEach((prof) => tempDepts.push(...prof.department));
     setDepts([...new Set(tempDepts)]);
     setDisplayRes(res);
     setIsLoading(false);
@@ -221,9 +222,9 @@ function SearchRes() {
       <div id='search-res-profs'>
         {displayRes.map((prof) => (
           <Link
-            to={`/professors?id=${prof.id}`}
+            to={`/professors?id=${prof._id}`}
             className='search-res-link'
-            key={prof.id}>
+            key={prof._id}>
             <ProfDisplay prof={prof} />
           </Link>
         ))}

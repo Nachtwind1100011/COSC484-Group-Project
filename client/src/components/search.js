@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Nav from "./nav";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Autocomplete, TextField } from "@mui/material";
-import { Professors } from "./data";
 import SelectForm from "./select";
 import { useNavigate, Outlet } from "react-router-dom";
 import axios from "axios";
@@ -33,7 +32,7 @@ function Search() {
     if (event.type === "click" && event.target.id.includes("input")) {
       if (nextSearchOption === "sch") {
         navigate(`/search/sch?name=${val}`);
-      } else navigate(`/professors?id=${val.id}`);
+      } else navigate(`/professors?id=${val._id}`);
     }
   }
 
@@ -54,7 +53,6 @@ function Search() {
   }, []);
 
   useEffect(() => {
-    console.log(professors);
     setSchools([...new Set(professors.map((prof) => prof.school))]);
   }, [professors]);
 
@@ -80,7 +78,7 @@ function Search() {
             options={
               nextSearchOption === "sch"
                 ? schools
-                : Professors.map((option) => {
+                : professors.map((option) => {
                     const modOption = {
                       ...option,
                       label: `${option.fname} ${option.lname}, ${option.school}`,
