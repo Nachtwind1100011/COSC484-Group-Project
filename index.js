@@ -10,7 +10,7 @@ const {DatabaseHandler} = require('./DatabaseHandler');
 const {Developer} = require('./developPass');
 const userRouter = require('./Routes/users');
 const profRouter = require('./Routes/professors');
-
+const commentRouter = require('./Routes/comments');
 
 //enviorment and development vars 
 const PORT = process.env.PORT || 8080;
@@ -48,7 +48,7 @@ app.use(cookieParser());
 //routing
 app.use('/users', userRouter);
 app.use('/professors', profRouter);
-
+app.use('/comments', commentRouter);
 
 //for the main page aka index testing 
 app.get("/", (req, res, next) => {

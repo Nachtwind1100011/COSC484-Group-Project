@@ -8,12 +8,16 @@ const commentSchema = new mongoose.Schema({
         type: String,
         required: [true, "must provide userus"]
     },
+    professorID: {
+        type: String, 
+        required: [true, "Must provide professor ID"]
+    },
     username: {
         type: String,
         required: [true, "must provide username"]
     }, 
     date: {
-        type: Date,
+        type: String,
         require: [true, "must provide date"]
     },
 
