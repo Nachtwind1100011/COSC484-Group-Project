@@ -17,9 +17,12 @@ import {
   faThumbsUp,
   faThumbsDown,
   faBook,
+  faBalanceScale,
+  faQuestion,
 } from "@fortawesome/free-solid-svg-icons";
 
 import "./App.css";
+import SearchRes from "./components/search-res";
 
 function App() {
   library.add(
@@ -30,7 +33,9 @@ function App() {
     faChalkboardTeacher,
     faThumbsUp,
     faThumbsDown,
-    faBook
+    faBook,
+    faBalanceScale,
+    faQuestion
   );
   const { loggedIn } = useContext(AuthContext);
 
@@ -47,7 +52,9 @@ function App() {
           path='signup'
           element={loggedIn ? <Navigate replace to='/search' /> : <SignUp />}
         />
-        <Route path='search' element={<Search />} />
+        <Route path='search' element={<Search />}>
+          <Route path=':field' element={<SearchRes />} />
+        </Route>
         <Route path='add' element={<AddProf />} />
       </Routes>
     </BrowserRouter>
