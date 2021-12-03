@@ -30,8 +30,9 @@ router.post("/createProfessor", async (req, res, next) => {
 });
 
 
+//get all proferssors from the route, each request is verified through the react/node verify request so no need for middleware
+//verify request
 router.get("/allProfessors", async (req, res) => {
-  console.log("End point hit");
   let professorJSON = await DatabaseHandler.getAllProfessors();
   if (professorJSON) {
     res.status(200).json(professorJSON);
@@ -39,6 +40,14 @@ router.get("/allProfessors", async (req, res) => {
     res.status(500).send("Error sending all professors");
   }
 });
+
+router.get("/getProfessorByID/:id", async (req, res) => {
+  const id = req.params.id;
+  const professor = await DatabaseHandler.getProfessorByID(id);
+  res.status(200).json(professor);
+});
+
+
 
 
 module.exports = router;

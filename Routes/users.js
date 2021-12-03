@@ -82,14 +82,12 @@ router.post("/login", async (req, res, next) => {
 //check to make sure the user is logged in
 router.get('/isloggedIn', (req, res) => {
     const token = req.cookies.token;
-
-    if(!token) {
+    if(!token || token == undefined) {
         return res.send(false);
     }
 
    try {
-    jwt.verify(token, SECRETE_KEY);
-
+    let result = jwt.verify(token, SECRETE_KEY);
     return res.send(true);
 
    } catch(e) {

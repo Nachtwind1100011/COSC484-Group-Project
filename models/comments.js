@@ -5,8 +5,12 @@ const mongoose = require('mongoose');
 
 const commentSchema = new mongoose.Schema({ 
     userID: {
-        type: mongoose.Types.ObjectId,
+        type: String,
         required: [true, "must provide userus"]
+    },
+    username: {
+        type: String,
+        required: [true, "must provide username"]
     }, 
     date: {
         type: Date,

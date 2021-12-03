@@ -90,6 +90,15 @@ class DatabaseHandler {
             console.log("Error getting all professors");
         }
     }
+
+    static async getProfessorByID(id) {
+        try {
+            const professor = await Professor.findById(id);
+            return professor;
+        } catch(error) {
+            console.log(error);
+        }
+    }
 }
 
 
