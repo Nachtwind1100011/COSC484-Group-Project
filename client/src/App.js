@@ -52,10 +52,15 @@ function App() {
           path='signup'
           element={loggedIn ? <Navigate replace to='/search' /> : <SignUp />}
         />
-        <Route path='search' element={<Search />}>
+        <Route
+          path='search'
+          element={!loggedIn ? <Navigate replace to='/' /> : <Search />}>
           <Route path=':field' element={<SearchRes />} />
         </Route>
-        <Route path='add' element={<AddProf />} />
+        <Route
+          path='add'
+          element={!loggedIn ? <Navigate replace to='/' /> : <AddProf />}
+        />
       </Routes>
     </BrowserRouter>
   );
