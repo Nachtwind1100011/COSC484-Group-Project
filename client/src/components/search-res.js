@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { Professors } from "./data";
 import Fuse from "fuse.js";
 import SelectForm from "./select";
 import ProfDisplay from "./prof-info";
@@ -24,8 +23,8 @@ function SearchRes() {
   const [isLoading, setIsLoading] = useState(true);
   const sortingOptions = ["Learning Preference", "Alphabetical"];
   const user = JSON.parse(sessionStorage.getItem("user"));
-  //   const userPreference = user.learningPreference;
-  const userPreference = "Textbook";
+  const userPreference = user.learningPreference;
+  //   const userPreference = "Textbook";
   const props = React.useContext(Context);
   const [professors, setProfessors] = useState(props.professors);
   const [schools, setSchools] = useState(props.schools);
