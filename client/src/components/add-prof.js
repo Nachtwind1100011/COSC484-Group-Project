@@ -62,9 +62,9 @@ function AddProf() {
       );
       setFName("");
       setLName("");
-      setKey1(new Date());
-      setKey2(new Date());
-      setKey3(new Date());
+      setKey1(new Date().getTime());
+      setKey2(new Date().getTime() + 1);
+      setKey3(new Date().getTime() + 2);
       setSuccessDisplay("block");
     } catch (error) {
       setErrorDisplay("block");
