@@ -41,5 +41,13 @@ router.get("/allProfessors", async (req, res) => {
   }
 });
 
+router.get("/getProfessorByID/:id", async (req, res) => {
+  const id = req.params.id;
+  const professor = await DatabaseHandler.getProfessorByID(id);
+  res.status(200).json(professor);
+});
+
+
+
 
 module.exports = router;
