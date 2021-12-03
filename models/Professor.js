@@ -23,15 +23,19 @@ const professorSchema = new mongoose.Schema({
     },
     textbook: {
         type: Number,
+        default: 0
     },
     lecture: {
         type: Number,
+        default: 0
     },
     likes: {
-        type: Number
+        type: Number,
+        default: 0
     },
     dislikes: {
-        type: Number
+        type: Number,
+        default: 0
     }
 });
 
