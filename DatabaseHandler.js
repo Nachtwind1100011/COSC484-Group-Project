@@ -81,6 +81,15 @@ class DatabaseHandler {
             return 400;
         }
     }
+
+    static async getAllProfessors() {
+        try {
+            const allProfessors = await Professor.find({});
+             return allProfessors;
+        } catch(error) {
+            console.log("Error getting all professors");
+        }
+    }
 }
 
 
