@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Professors } from "./data";
+// import { Professors } from "./data";
 import Fuse from "fuse.js";
 import SelectForm from "./select";
 import ProfDisplay from "./prof-info";
 import SchoolDisplay from "./search-school";
 import { Link } from "react-router-dom";
 import { Context } from "./search";
+import axios from "axios";
 
 function SearchRes() {
   const { field } = useParams();
@@ -40,7 +41,13 @@ function SearchRes() {
 
   useEffect(() => {
     if ((field !== "prof" && field !== "sch") || !name) navigate("/search");
-    if (professors.length === 0) setProfessors(Professors);
+    if (professors.length === 0) {
+      axios
+        .get("http://localhost:8080/professors/allProfessors", {
+          withCredentials: true,
+        })
+        .then((res) => setProfessors(res));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

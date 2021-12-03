@@ -5,6 +5,7 @@ import { Autocomplete, TextField } from "@mui/material";
 import { Professors } from "./data";
 import SelectForm from "./select";
 import { useNavigate, Outlet } from "react-router-dom";
+import axios from "axios";
 
 const Context = React.createContext({});
 
@@ -45,9 +46,11 @@ function Search() {
   };
 
   useEffect(() => {
-    // request
-    //.then
-    setProfessors(Professors);
+    axios
+      .get("http://localhost:8080/professors/allProfessors", {
+        withCredentials: true,
+      })
+      .then((res) => setProfessors(res));
   }, []);
 
   useEffect(() => {
