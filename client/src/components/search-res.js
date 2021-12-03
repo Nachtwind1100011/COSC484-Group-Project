@@ -46,7 +46,7 @@ function SearchRes() {
         .get("http://localhost:8080/professors/allProfessors", {
           withCredentials: true,
         })
-        .then((res) => setProfessors(res));
+        .then((res) => setProfessors(res.data));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

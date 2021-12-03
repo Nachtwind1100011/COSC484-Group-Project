@@ -50,10 +50,11 @@ function Search() {
       .get("http://localhost:8080/professors/allProfessors", {
         withCredentials: true,
       })
-      .then((res) => setProfessors(res));
+      .then((res) => setProfessors(res.data));
   }, []);
 
   useEffect(() => {
+    console.log(professors);
     setSchools([...new Set(professors.map((prof) => prof.school))]);
   }, [professors]);
 
