@@ -26,7 +26,7 @@ function SelectForm(props) {
         id={props.id}
         value={value}
         onChange={handleChange}
-        disableUnderline
+        disableUnderline={true}
         sx={props.selectSx || props.sx}>
         {props.items.map((item) => (
           <MenuItem key={item.id || item} value={item} sx={props.sx}>

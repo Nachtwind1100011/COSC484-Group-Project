@@ -9,6 +9,7 @@ const { Logger } = require('./middleware/Logger');
 const {DatabaseHandler} = require('./DatabaseHandler');
 const {Developer} = require('./developPass');
 const userRouter = require('./Routes/users');
+const profRouter = require('./Routes/professors');
 
 
 //enviorment and development vars 
@@ -46,6 +47,7 @@ app.use(cookieParser());
 
 //routing
 app.use('/users', userRouter);
+app.use('/professors', profRouter);
 
 
 //for the main page aka index testing 
