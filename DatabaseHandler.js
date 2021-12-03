@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const User = require('./models/User');
 const Professor = require('./models/Professor');
+const Comment = require('./models/comments');
 const SALT_ROUNDS = 10;
 
 class DatabaseHandler {
@@ -97,6 +98,24 @@ class DatabaseHandler {
             return professor;
         } catch(error) {
             console.log(error);
+        }
+    }
+
+
+    //adding new comments 
+    static async addComment(userid, professorid, username, date, comment) {
+        try {
+            const result = await Comment.create({
+                userID: userid,
+                professorID: professorid,
+                username: username,
+                date: date,
+                commentBody: comment
+            });
+            return 200;
+        } catch(error) {
+            console.log(error);
+            return 500;
         }
     }
 }
