@@ -27,6 +27,18 @@ router.post("/addComment", async (req, res) => {
 });
 
 
+//get comments by professor's id
+router.get("/getProfessorComments/:id", async (req, res) => {
+    const id = req.params.id;
+    if(!id) {
+        return res.status(4001).send("No professor id found");
+    }
+
+    const comments = await DatabaseHandler.getProfessorComments(id);
+    return res.status(200).json(comments);
+});
+
+
 
 
 
