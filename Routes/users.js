@@ -4,8 +4,10 @@ let router = express.Router();
 const {DatabaseHandler} = require('../DatabaseHandler');
 const jwt = require("jsonwebtoken");
 const {Developer} = require('../developPass');
-const { EventStuff } = require('../middleware/EventLogger');
+//const { EventStuff } = require('../middleware/EventLogger');
 
+//this was in the initial piece 
+//const {EventLogger} = require('./middleware/eventLogger');
 
 const SECRETE_KEY = process.env.SECRETE || Developer.Secrete_Key();
 // var fs = require('fs');
@@ -19,9 +21,13 @@ console.log(":::users.js line 8");
 
 //the post request for creating a new user 
 router.post("/createUser", async (req, res, next) => {
+    
+    //also in the initial piece 
+    //app.use(EventLogger.eventLogger);
+    
     console.log("users.js line 13");
 
-    EventStuff.funOne();
+    //EventStuff.funOne();
 
     let username = req.body.username;
     let email = req.body.email;

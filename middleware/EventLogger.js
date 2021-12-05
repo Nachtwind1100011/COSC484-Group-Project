@@ -1,21 +1,21 @@
-//michael
-//const EventLogger = () => {
-    function funOne(){
-    var fs = require('fs');
-
-    console.log("::::Logger.js line 3");
-    /*
-    let date = new Date();
-    //create a file named mynewfile1.txt:
-    fs.appendFile('mynewfile1.txt', "hi", function (err) {
-        if (err) throw err;
-        console.log("Logger Data Saved");
-    });
-
-    next();
-    */
+//NOT IN USE 
+/*
+//second implementation here 
+class EventLogger {
+    eventLogger(req, res, next) {
+        console.log();
+        next();
+    }
 }
-module.exports = { funOne };
+module.exports = EventLogger;
+*/
 
+/*
+//previous thing
+const eventLogger = (req, res, next) => {
+    console.log("Event Logger");
+    next();
+} 
 
-//console.log(`[MIDDLEWARE LOG ${date}:]  ${req.method} ${req.originalUrl}`);
+module.exports = eventLogger;
+*/

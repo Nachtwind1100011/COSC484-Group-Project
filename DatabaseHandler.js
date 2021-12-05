@@ -5,6 +5,10 @@ const bcrypt = require('bcrypt');
 const User = require('./models/User');
 const SALT_ROUNDS = 10;
 
+//i added this rn
+const { EventLogger } = require('./ErrorHandler');
+
+
 class DatabaseHandler {
 
     //starting the database 
@@ -12,10 +16,14 @@ class DatabaseHandler {
         try {
 
             await mongoose.connect(url);
+            //testing here, not actually an error
+            ErrorHandler.dataBaseError(err);
             console.log("Database started");
             
         } catch (error) {
             console.log("Error connecting to the database");
+            //this is being tested rn
+            ErrorHandler.dataBaseError(err);
         }
     }
 
