@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Nav from "./nav";
 import { useSearchParams } from "react-router-dom";
 import ProfDisplay from "./prof-info";
+import AddComment from "./addComment";
 import axios from "axios";
 
 function Prof() {
@@ -23,11 +24,16 @@ function Prof() {
   return (
     <div>
       <Nav status='loggedIn' />
+
       {prof && (
         <div id='prof-content'>
           <ProfDisplay prof={prof} />
         </div>
       )}
+
+      <div>
+        <AddComment profId={id} />
+      </div>
     </div>
   );
 }
