@@ -3,15 +3,17 @@ import Nav from "./nav";
 import { useSearchParams } from "react-router-dom";
 import ProfDisplay from "./prof-info";
 import AddComment from "./addComment";
+import ProfessorComments from "../ProfessorComments";
 import axios from "axios";
 
 function Prof() {
   const [params] = useSearchParams();
   const id = params.get("id");
   const [prof, setProf] = useState(null);
+  const [profComments, setProfComments] = useState([]);
+
 
   useEffect(() => {
-    console.log(id);
     axios
       .get(`http://localhost:8080/professors/getProfessorByID/${id}`, {
         withCredentials: true,
@@ -19,6 +21,11 @@ function Prof() {
       .then((res) => setProf(res.data));
     //get comments by prof id
     // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    //second axios for comments
+    axios.get(`http://localhost:8080/comments/getProfessorComments/${id}`, {withCredentials: true})
+      .then((res) => setProfComments(res.data));
+
   }, []);
 
   return (
@@ -33,6 +40,12 @@ function Prof() {
 
       <div>
         <AddComment profId={id} />
+      </div>
+      
+      <div>
+      {
+        profComments.map((el, i) => {return <ProfessorComments prof={el} key={i} /> })
+      }
       </div>
     </div>
   );
