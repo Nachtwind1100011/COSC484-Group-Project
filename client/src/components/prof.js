@@ -43,9 +43,11 @@ function Prof() {
       </div>
       
       <div>
-      {
-        profComments.map((el, i) => {return <ProfessorComments prof={el} key={i} /> })
-      }
+      { profComments.length > 0 ? 
+       profComments.map((el, i) => {return <ProfessorComments prof={el} key={i} /> })
+
+       : <h2>There are no comments for this professor.</h2>
+      } 
       </div>
     </div>
   );
