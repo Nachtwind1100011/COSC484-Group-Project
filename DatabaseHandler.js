@@ -118,6 +118,18 @@ class DatabaseHandler {
             return 500;
         }
     }
+
+
+    //get comments by professor id
+    static async getProfessorComments(id) {
+        try {
+            const result = await Comment.find({professorID: id});
+            return result
+        } catch(error) {
+            console.log("Error no professor comment found");
+            return null;
+        }
+    }
 }
 
 
