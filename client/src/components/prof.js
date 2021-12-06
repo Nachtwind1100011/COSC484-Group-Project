@@ -25,7 +25,7 @@ function Prof() {
 
   function getComments() {
     axios
-      .get(`http://localhost:8080/comments/getProfessorComments/${id}`, {
+      .get(`https://pick-my-professor.herokuapp.com/comments/getProfessorComments/${id}`, {
         withCredentials: true,
       })
       .then((res) =>

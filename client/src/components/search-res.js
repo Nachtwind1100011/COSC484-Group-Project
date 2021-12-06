@@ -42,7 +42,7 @@ function SearchRes() {
     if ((field !== "prof" && field !== "sch") || !name) navigate("/search");
     if (professors.length === 0) {
       axios
-        .get("http://localhost:8080/professors/allProfessors", {
+        .get("https://pick-my-professor.herokuapp.com/professors/allProfessors", {
           withCredentials: true,
         })
         .then((res) => setProfessors(res.data));
