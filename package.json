@@ -4,6 +4,7 @@
   "description": "Group project cosc-484",
   "main": "index.js",
   "scripts": {
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
     "start": "node index.js",
     "test": "mocha",
     "server": "node index",
