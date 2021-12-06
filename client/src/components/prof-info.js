@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 
 function ProfDisplay(props) {
   const [prof, setProf] = useState(props.prof);
-  const totalVotes = prof.likes + prof.dislikes;
+  const [likes, setLikes] = useState(prof.likes);
+  const [dislikes, setDislikes] = useState(prof.dislikes);
+  const [textbook, setTextbook] = useState(prof.textbook);
+  const [lecture, setLecture] = useState(prof.lecture);
+  const totalVotes = likes + dislikes;
   const rating =
-    totalVotes === 0
-      ? 0
-      : Math.round((props.prof.likes / totalVotes) * 50) / 10;
+    totalVotes === 0 ? 0 : Math.round((likes / totalVotes) * 50) / 10;
 
   function updateProf() {
     axios
@@ -25,6 +27,13 @@ function ProfDisplay(props) {
       })
       .then(updateProf());
   }
+
+  useEffect(() => {
+    setLikes(prof.likes);
+    setDislikes(prof.dislikes);
+    setTextbook(prof.textbook);
+    setLecture(prof.lecture);
+  }, [prof]);
 
   return (
     <div className='prof'>
@@ -49,12 +58,12 @@ function ProfDisplay(props) {
           <div className='prof-info-likes'>
             <FontAwesomeIcon icon='thumbs-up' onClick={() => vote("like")} />
 
-            <div>{prof.likes}</div>
+            <div>{likes}</div>
             <FontAwesomeIcon
               icon='thumbs-down'
               onClick={() => vote("dislike")}
             />
-            <div>{prof.dislikes}</div>
+            <div>{dislikes}</div>
             <span>•</span>
           </div>
           <div className='prof-info-style'>
@@ -62,19 +71,19 @@ function ProfDisplay(props) {
               icon='chalkboard-teacher'
               onClick={() => vote("lecture")}
             />
-            <div>{prof.lecture}</div>
+            <div>{lecture}</div>
             <FontAwesomeIcon icon='book' onClick={() => vote("textbook")} />
-            <div>{prof.textbook}</div>
+            <div>{textbook}</div>
           </div>
         </div>
       </div>
       <div className='flex-div'></div>
       <div className='search-prof-icon'>
-        {prof.lecture === 0 && prof.textbook === 0 ? (
+        {lecture === 0 && textbook === 0 ? (
           <FontAwesomeIcon icon='question' />
-        ) : prof.lecture === prof.textbook ? (
+        ) : lecture === textbook ? (
           <FontAwesomeIcon icon='balance-scale' />
-        ) : prof.lecture > prof.textbook ? (
+        ) : lecture > textbook ? (
           <FontAwesomeIcon icon='chalkboard-teacher' />
         ) : (
           <FontAwesomeIcon icon='book' />

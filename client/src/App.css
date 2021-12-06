@@ -122,12 +122,26 @@ body,
   color: #606060;
   font-weight: 500;
 }
+.logo-full {
+  display: flex;
+  flex-direction: column;
+}
+.logo-full-line {
+  margin: 8px 0;
+  display: flex;
+}
 .logo-full-line span {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 1px solid #fafafa;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #fafafa;
+  font-size: 20px;
+  font-weight: 500;
+  margin-right: 6px;
+  background-color: #c4c4c4;
+  filter: drop-shadow(4px 4px 1px #8a8a8a);
 }
 .landing-links {
   width: 100%;
