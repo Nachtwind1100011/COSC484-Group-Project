@@ -11,9 +11,10 @@ const userRouter = require('./Routes/users');
 const profRouter = require('./Routes/professors');
 const commentRouter = require('./Routes/comments');
 
+const {Developer} = require("./developPass");
 //enviorment and development vars 
 const PORT = process.env.PORT || 8080;
-const MONGO_URL = process.env.MONGOURL;
+const MONGO_URL = process.env.MONGOURL || Developer.Mongo_Pass();
 
 //app and db
 let app = express();

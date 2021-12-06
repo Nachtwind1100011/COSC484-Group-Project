@@ -25,7 +25,7 @@ function Prof() {
 
   function getComments() {
     axios
-      .get(`https://pick-my-professor.herokuapp.com/comments/getProfessorComments/${id}`, {
+      .get(`http://localhost:8080/comments/getProfessorComments/${id}`, {
         withCredentials: true,
       })
       .then((res) =>
@@ -65,7 +65,7 @@ function Prof() {
 
   useEffect(() => {
     axios
-      .get(`https://pick-my-professor.herokuapp.com/professors/getProfessorByID/${id}`, {
+      .get(`http://localhost:8080/professors/getProfessorByID/${id}`, {
         withCredentials: true,
       })
       .then((res) => setProf(res.data));

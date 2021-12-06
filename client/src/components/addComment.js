@@ -16,7 +16,7 @@ function AddComment(props) {
 
     try {
       await axios.post(
-        "https://pick-my-professor.herokuapp.com//comments/addComment",
+        "http://localhost:8080/comments/addComment",
         {
           userID: userId,
           professorID: professorId,
