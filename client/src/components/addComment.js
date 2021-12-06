@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { TextField, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import { FormStyle } from "../styles";
 
 function AddComment(props) {
@@ -15,11 +15,7 @@ function AddComment(props) {
     e.preventDefault();
 
     try {
-      console.log(
-        `username ${username} userid ${userId} professorId ${professorId}`
-      );
-
-      const sentComment = await axios.post(
+      await axios.post(
         "http://127.0.0.1:8080/comments/addComment",
         {
           userID: userId,

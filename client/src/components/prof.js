@@ -20,18 +20,48 @@ function Prof() {
   const id = params.get("id");
   const [prof, setProf] = useState(null);
   const [profComments, setProfComments] = useState([]);
+  const [displayComments, setDisplayComments] = useState([]);
+  const [sortPref, setSortPref] = useState("Newest First");
 
   function getComments() {
     axios
       .get(`http://localhost:8080/comments/getProfessorComments/${id}`, {
         withCredentials: true,
       })
-      .then((res) => setProfComments(res.data));
+      .then((res) =>
+        setProfComments(
+          res.data.map((comment) => {
+            comment.date = new Date(comment.date);
+            return comment;
+          })
+        )
+      );
+  }
+
+  function sort() {
+    if (sortPref === "Newest First")
+      setDisplayComments(
+        profComments.slice(0).sort((a, b) => (a.date < b.date ? 1 : -1))
+      );
+    else
+      setDisplayComments(
+        profComments.slice(0).sort((a, b) => (a.date < b.date ? -1 : 1))
+      );
   }
 
   function handleChangeSort(id, value) {
-    console.log(id, value);
+    setSortPref(value);
   }
+
+  useEffect(() => {
+    sort();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sortPref]);
+
+  useEffect(() => {
+    sort();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profComments]);
 
   useEffect(() => {
     axios
@@ -69,7 +99,7 @@ function Prof() {
               handleChange={handleChangeSort}
               items={["Newest First", "Oldest First"]}
             />
-            {profComments.map((el, i) => {
+            {displayComments.map((el, i) => {
               return <ProfessorComments prof={el} key={i} />;
             })}
           </div>
