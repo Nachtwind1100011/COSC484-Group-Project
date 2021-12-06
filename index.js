@@ -7,14 +7,13 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const { Logger } = require('./middleware/Logger');
 const {DatabaseHandler} = require('./DatabaseHandler');
-const {Developer} = require('./developPass');
 const userRouter = require('./Routes/users');
 const profRouter = require('./Routes/professors');
 const commentRouter = require('./Routes/comments');
 
 //enviorment and development vars 
 const PORT = process.env.PORT || 8080;
-const MONGO_URL = process.env.MONGOURL || Developer.Mongo_Pass();
+const MONGO_URL = process.env.MONGOURL;
 
 //app and db
 let app = express();
