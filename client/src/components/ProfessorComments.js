@@ -9,7 +9,9 @@ function ProfessorComments(props) {
     <div className='comment'>
       <div className='comment-top'>
         <span>{username}</span>
-        <span>{date}</span>
+        <span>
+          {date.getMonth() + 1}/{date.getDate()}/{date.getFullYear()}
+        </span>
       </div>
       <div>{comment}</div>
     </div>
