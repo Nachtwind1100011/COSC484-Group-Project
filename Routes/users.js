@@ -2,9 +2,6 @@ const express = require('express');
 let router = express.Router();
 const {DatabaseHandler} = require('../DatabaseHandler');
 const jwt = require("jsonwebtoken");
-const {Developer} = require("../developPass");
-
-const SECRETE_KEY = process.env.SECRETE || Developer.Secrete_Key();
 
 
 //the post request for creating a new user 

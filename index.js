@@ -11,15 +11,14 @@ const userRouter = require('./Routes/users');
 const profRouter = require('./Routes/professors');
 const commentRouter = require('./Routes/comments');
 
-const {Developer} = require("./developPass");
 //enviorment and development vars 
 const PORT = process.env.PORT || 8080;
-const MONGO_URL = process.env.MONGOURL || Developer.Mongo_Pass();
+const MONGO_URL = process.env.MONGOURL;
 
 //app and db
 let app = express();
 
-/* // ** MIDDLEWARE ** //
+ // ** MIDDLEWARE ** //
 const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://pick-my-professor.herokuapp.com'];
 const corsOptions = {
   origin: function (origin, callback) {
@@ -33,11 +32,11 @@ const corsOptions = {
     }
   }
 }
-app.use(cors(corsOptions)) */
+app.use(cors(corsOptions)) 
 
 
 //allows cors and axios to make request 
-app.use(function(req, res, next) {
+/* app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -52,11 +51,11 @@ app.use(
       //front end and backend having credentials true
       credentials: true,
     })
-  );
+  ); */
 
 
 //middleware 
-app.use(express.static(__dirname + "/public")); //public render for html js css
+//app.use(express.static(__dirname + "/public")); //public render for html js css
 app.use(Logger);
 app.use(express.json()); // for json request
 app.use(express.urlencoded({extended:true})); // parsing 
