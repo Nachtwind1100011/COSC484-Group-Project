@@ -297,6 +297,9 @@ body,
 .prof-info-style > * {
   padding-right: 10px;
 }
+.prof-info-rating svg:hover {
+  cursor: pointer;
+}
 #search-res-schools > * {
   margin-bottom: 16px;
 }
