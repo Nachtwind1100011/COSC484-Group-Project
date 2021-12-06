@@ -130,6 +130,29 @@ class DatabaseHandler {
             return null;
         }
     }
+
+
+    //adding likes to professor pages 
+    static async addLike(id, like) {
+        const professor = await Professor.findById(id);
+        let newVal = 0;
+        if(like == 'textbook') {
+            newVal = professor.textbook + 1;
+            professor.textbook = newVal;
+        } else if (like == "lecture") {
+            newVal = professor.lecture + +1;
+            professor.lecture = newVal;
+        } else if (like == "like") {
+            newVal = professor.like +1;
+            professor.likes = newVal;
+        } else if(like == 'dislike') {
+            newVal = professor.dislikes +1;
+            professor.dislikes = newVal;
+        }
+
+        professor.save();
+        return 200;
+    }
 }
 
 

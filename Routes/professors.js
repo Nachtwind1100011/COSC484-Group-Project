@@ -45,6 +45,13 @@ router.get("/getProfessorByID/:id", async (req, res) => {
   res.status(200).json(professor);
 });
 
+router.get("/addLike/:id/:like", async (req, res) => {
+  const id = req.params.id;
+  const like = req.params.like;
+  const result = await DatabaseHandler.addLike(id, like);
+  res.status(result).send("Like added");
+});
+
 
 
 
