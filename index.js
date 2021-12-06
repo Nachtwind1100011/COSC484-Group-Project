@@ -50,11 +50,6 @@ app.use('/users', userRouter);
 app.use('/professors', profRouter);
 app.use('/comments', commentRouter);
 
-//for the main page aka index testing 
-app.get("/", (req, res, next) => {
-    return res.status(200).render("index");
-});
-
 
 
 const path = require('path');
