@@ -24,7 +24,6 @@ function SearchRes() {
   const sortingOptions = ["Learning Preference", "Alphabetical"];
   const user = JSON.parse(sessionStorage.getItem("user"));
   const userPreference = user.learningPreference;
-  //   const userPreference = "Textbook";
   const props = React.useContext(Context);
   const [professors, setProfessors] = useState(props.professors);
   const [schools, setSchools] = useState(props.schools);
