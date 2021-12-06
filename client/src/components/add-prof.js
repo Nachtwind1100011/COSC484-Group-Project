@@ -21,7 +21,7 @@ function AddProf() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/professors/allProfessors", {
+      .get("https://pick-my-professor.herokuapp.com/professors/allProfessors", {
         withCredentials: true,
       })
       .then((res) => setProfessors(res.data));
