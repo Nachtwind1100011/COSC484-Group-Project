@@ -97,7 +97,7 @@ function SearchRes() {
 
   function handleChangeFilter(value) {
     if (value === "All Departments") return res;
-    else return res.filter((prof) => prof.dept.includes(value));
+    else return res.filter((prof) => prof.department.includes(value));
   }
 
   function handleChangeSort(arr, value) {

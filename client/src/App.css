@@ -65,7 +65,7 @@ body,
 .landing {
   height: calc(60vh + 175px);
   position: relative;
-  padding: calc(40vh - 180px) 50px 30px;
+  padding: calc(40vh - 205px) 50px 30px;
 }
 .landing-top {
   position: absolute;
