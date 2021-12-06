@@ -14,17 +14,23 @@ function ProfDisplay(props) {
 
   function updateProf() {
     axios
-      .get(`http://localhost:8080/professors/getProfessorByID/${prof._id}`, {
-        withCredentials: true,
-      })
+      .get(
+        `https://pick-my-professor.herokuapp.com/professors/getProfessorByID/${prof._id}`,
+        {
+          withCredentials: true,
+        }
+      )
       .then((res) => setProf(res.data));
   }
 
   function vote(icon) {
     axios
-      .get(`http://localhost:8080/professors/addLike/${prof._id}/${icon}`, {
-        withCredentials: true,
-      })
+      .get(
+        `https://pick-my-professor.herokuapp.com/professors/addLike/${prof._id}/${icon}`,
+        {
+          withCredentials: true,
+        }
+      )
       .then(updateProf());
   }
 

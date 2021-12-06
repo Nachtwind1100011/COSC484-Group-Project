@@ -37,7 +37,7 @@ function SignUp() {
     } else {
       try {
         const login = await axios.post(
-          "http://localhost:8080/users/createUser",
+          "https://pick-my-professor.herokuapp.com/users/createUser",
           { username, email, learningPreference, password },
           { withCredentials: true }
         );
