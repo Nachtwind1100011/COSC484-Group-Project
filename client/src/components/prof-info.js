@@ -2,11 +2,19 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function ProfDisplay(props) {
+  // const [prof, setProf] = useState(props.prof)
   const totalVotes = props.prof.likes + props.prof.dislikes;
   const rating =
     totalVotes === 0
       ? 0
       : Math.round((props.prof.likes / totalVotes) * 50) / 10;
+
+  // function updateProf()
+
+  function vote(icon) {
+    console.log(icon);
+  }
+
   return (
     <div className='prof'>
       <div className='prof-info'>
@@ -29,16 +37,23 @@ function ProfDisplay(props) {
             <span>•</span>
           </div>
           <div className='prof-info-likes'>
-            <FontAwesomeIcon icon='thumbs-up' />
+            <FontAwesomeIcon icon='thumbs-up' onClick={() => vote("like")} />
+
             <div>{props.prof.likes}</div>
-            <FontAwesomeIcon icon='thumbs-down' />
+            <FontAwesomeIcon
+              icon='thumbs-down'
+              onClick={() => vote("dislike")}
+            />
             <div>{props.prof.dislikes}</div>
             <span>•</span>
           </div>
           <div className='prof-info-style'>
-            <FontAwesomeIcon icon='chalkboard-teacher' />
+            <FontAwesomeIcon
+              icon='chalkboard-teacher'
+              onClick={() => vote("lecture")}
+            />
             <div>{props.prof.lecture}</div>
-            <FontAwesomeIcon icon='book' />
+            <FontAwesomeIcon icon='book' onClick={() => vote("textbook")} />
             <div>{props.prof.textbook}</div>
           </div>
         </div>

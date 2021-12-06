@@ -65,7 +65,7 @@ body,
 .landing {
   height: calc(60vh + 175px);
   position: relative;
-  padding: calc(40vh - 205px) 50px 30px;
+  padding: calc(40vh - 180px) 50px 30px;
 }
 .landing-top {
   position: absolute;
@@ -75,7 +75,7 @@ body,
   background-image: url("https://www.transparenttextures.com/patterns/lined-paper.png");
   height: 40vh;
   width: 100%;
-  min-height: 200px;
+  min-height: 175px;
   min-width: 375px;
   z-index: -1;
 }
@@ -86,7 +86,6 @@ body,
   align-items: center;
 }
 .landing-logo {
-  border: solid pink 5px;
   display: flex;
   flex-wrap: wrap;
   min-width: 375px;
@@ -95,11 +94,26 @@ body,
 .landing-logo-sec {
   flex: 1;
   width: 375px;
-  height: 200px;
+  height: 175px;
   min-width: 375px;
-  border: solid #ffde6a 5px;
   margin: 0 10px 10px;
+}
+.logo-init {
+  border: 5px solid #c4c4c4;
   background-color: #fafafa;
+  font-size: 144px;
+  font-weight: 700;
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+}
+.logo-init .fa-graduation-cap {
+  position: absolute;
+  font-size: 40px;
+  left: -30px;
+  top: -30px;
+  transform: rotate(-24deg);
 }
 .landing-slogan {
   margin: 40px auto;
@@ -107,6 +121,13 @@ body,
   max-width: 790px;
   color: #606060;
   font-weight: 500;
+}
+.logo-full-line span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #fafafa;
+  text-align: center;
 }
 .landing-links {
   width: 100%;
