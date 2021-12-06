@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const User = require('./models/User');
 const Professor = require('./models/Professor');
 const Comment = require('./models/comments');
+const {ErrorHandler} = require('./middleware/ErrorHandler');
 const SALT_ROUNDS = 10;
 
 class DatabaseHandler {
@@ -16,6 +17,7 @@ class DatabaseHandler {
             
         } catch (error) {
             console.log("Error connecting to the database");
+            ErrorHandler.errorPassError(error);
         }
     }
 
@@ -23,6 +25,7 @@ class DatabaseHandler {
     static async createUser(username, email, learningPreference, password) {
         const duplicate = await User.findOne({username: username});
         if(duplicate) {
+            ErrorHandler.errorPassString("Duplicate login info for: UN: " + username + ", Email: " + email + ", learnPref: " + learningPreference + ", passwordHidden.");
             return 400;
         }
 
@@ -39,6 +42,7 @@ class DatabaseHandler {
             return 200;
 
         } catch(error) {
+            ErrorHandler.errorPassString("Failed to create user.");
             console.log(error);
             return 400;
         }
@@ -50,6 +54,7 @@ class DatabaseHandler {
             const user = await User.findOne({username: username});
             return user;
         } catch(error) {
+            ErrorHandler.errorPassString("Failed to get user.");
             return null;
         }
     }
@@ -78,6 +83,7 @@ class DatabaseHandler {
             return 200;
 
         } catch(error) {
+            ErrorHandler.errorPassString("Failed to create professor.");
             console.log(error);
             return 400;
         }
@@ -88,6 +94,7 @@ class DatabaseHandler {
             const allProfessors = await Professor.find({});
              return allProfessors;
         } catch(error) {
+            ErrorHandler.errorPassString("Failed to get all professors.");
             console.log("Error getting all professors");
         }
     }
@@ -97,6 +104,7 @@ class DatabaseHandler {
             const professor = await Professor.findById(id);
             return professor;
         } catch(error) {
+            ErrorHandler.errorPassString("Failed to get professors of id: " + id);
             console.log(error);
         }
     }
@@ -114,6 +122,7 @@ class DatabaseHandler {
             });
             return 200;
         } catch(error) {
+            ErrorHandler.errorPassString("Failed to add comment -- userid: " + userid + ", proffesorid: " + professorid + ", username: " + username + ", date: " + date + ", comment: " + comment);
             console.log(error);
             return 500;
         }
@@ -126,6 +135,7 @@ class DatabaseHandler {
             const result = await Comment.find({professorID: id});
             return result
         } catch(error) {
+            ErrorHandler.errorPassString("Failed to get professor comments of id: " + id);
             console.log("Error no professor comment found");
             return null;
         }
