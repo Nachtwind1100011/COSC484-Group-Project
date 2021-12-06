@@ -56,7 +56,7 @@ function AddProf() {
     };
     try {
       await axios.post(
-        "http://localhost:8080/professors/createProfessor",
+        "https://pick-my-professor.herokuapp.com/professors/createProfessor",
         body,
         { withCredentials: true }
       );

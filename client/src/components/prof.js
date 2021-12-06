@@ -65,7 +65,7 @@ function Prof() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/professors/getProfessorByID/${id}`, {
+      .get(`https://pick-my-professor.herokuapp.com/professors/getProfessorByID/${id}`, {
         withCredentials: true,
       })
       .then((res) => setProf(res.data));
