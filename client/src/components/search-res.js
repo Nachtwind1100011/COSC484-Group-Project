@@ -42,9 +42,12 @@ function SearchRes() {
     if ((field !== "prof" && field !== "sch") || !name) navigate("/search");
     if (professors.length === 0) {
       axios
-        .get("https://pick-my-professor.herokuapp.com/professors/allProfessors", {
-          withCredentials: true,
-        })
+        .get(
+          "https://pick-my-professor.herokuapp.com/professors/allProfessors",
+          {
+            withCredentials: true,
+          }
+        )
         .then((res) => setProfessors(res.data));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

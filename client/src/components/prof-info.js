@@ -1,25 +1,58 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 
 function ProfDisplay(props) {
-  const totalVotes = props.prof.likes + props.prof.dislikes;
+  const [prof, setProf] = useState(props.prof);
+  const [likes, setLikes] = useState(prof.likes);
+  const [dislikes, setDislikes] = useState(prof.dislikes);
+  const [textbook, setTextbook] = useState(prof.textbook);
+  const [lecture, setLecture] = useState(prof.lecture);
+  const totalVotes = likes + dislikes;
   const rating =
-    totalVotes === 0
-      ? 0
-      : Math.round((props.prof.likes / totalVotes) * 50) / 10;
+    totalVotes === 0 ? 0 : Math.round((likes / totalVotes) * 50) / 10;
+
+  function updateProf() {
+    axios
+      .get(
+        `https://pick-my-professor.herokuapp.com/professors/getProfessorByID/${prof._id}`,
+        {
+          withCredentials: true,
+        }
+      )
+      .then((res) => setProf(res.data));
+  }
+
+  function vote(icon) {
+    axios
+      .get(
+        `https://pick-my-professor.herokuapp.com/professors/addLike/${prof._id}/${icon}`,
+        {
+          withCredentials: true,
+        }
+      )
+      .then(updateProf());
+  }
+
+  useEffect(() => {
+    setLikes(prof.likes);
+    setDislikes(prof.dislikes);
+    setTextbook(prof.textbook);
+    setLecture(prof.lecture);
+  }, [prof]);
+
   return (
     <div className='prof'>
       <div className='prof-info'>
         <div className='prof-info-name'>
-          {props.prof.fname} {props.prof.lname}
+          {prof.fname} {prof.lname}
         </div>
         <div className='prof-info-background'>
-          <span>{props.prof.school}</span>
+          <span>{prof.school}</span>
           <span>|</span>
           <span>
-            {props.prof.department[0]}
-            {props.prof.department.length > 1 &&
-              ", " + props.prof.department[1]}
+            {prof.department[0]}
+            {prof.department.length > 1 && ", " + prof.department[1]}
           </span>
         </div>
 
@@ -29,27 +62,34 @@ function ProfDisplay(props) {
             <span>•</span>
           </div>
           <div className='prof-info-likes'>
-            <FontAwesomeIcon icon='thumbs-up' />
-            <div>{props.prof.likes}</div>
-            <FontAwesomeIcon icon='thumbs-down' />
-            <div>{props.prof.dislikes}</div>
+            <FontAwesomeIcon icon='thumbs-up' onClick={() => vote("like")} />
+
+            <div>{likes}</div>
+            <FontAwesomeIcon
+              icon='thumbs-down'
+              onClick={() => vote("dislike")}
+            />
+            <div>{dislikes}</div>
             <span>•</span>
           </div>
           <div className='prof-info-style'>
-            <FontAwesomeIcon icon='chalkboard-teacher' />
-            <div>{props.prof.lecture}</div>
-            <FontAwesomeIcon icon='book' />
-            <div>{props.prof.textbook}</div>
+            <FontAwesomeIcon
+              icon='chalkboard-teacher'
+              onClick={() => vote("lecture")}
+            />
+            <div>{lecture}</div>
+            <FontAwesomeIcon icon='book' onClick={() => vote("textbook")} />
+            <div>{textbook}</div>
           </div>
         </div>
       </div>
       <div className='flex-div'></div>
       <div className='search-prof-icon'>
-        {props.prof.lecture === 0 && props.prof.textbook === 0 ? (
+        {lecture === 0 && textbook === 0 ? (
           <FontAwesomeIcon icon='question' />
-        ) : props.prof.lecture === props.prof.textbook ? (
+        ) : lecture === textbook ? (
           <FontAwesomeIcon icon='balance-scale' />
-        ) : props.prof.lecture > props.prof.textbook ? (
+        ) : lecture > textbook ? (
           <FontAwesomeIcon icon='chalkboard-teacher' />
         ) : (
           <FontAwesomeIcon icon='book' />
