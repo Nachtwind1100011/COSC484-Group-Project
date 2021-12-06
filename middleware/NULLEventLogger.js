@@ -4,7 +4,7 @@
     var fs = require('fs');
 
     console.log("::::Logger.js line 3");
-    /*
+    
     let date = new Date();
     //create a file named mynewfile1.txt:
     fs.appendFile('mynewfile1.txt', "hi", function (err) {
@@ -13,7 +13,7 @@
     });
 
     next();
-    */
+    
 }
 module.exports = { funOne };
 

@@ -6,7 +6,7 @@ const User = require('./models/User');
 const SALT_ROUNDS = 10;
 
 //i added this rn
-const { EventLogger } = require('./ErrorHandler');
+const {ErrorHandler} = require('./ErrorHandler');
 
 
 class DatabaseHandler {
@@ -14,16 +14,17 @@ class DatabaseHandler {
     //starting the database 
     static async startDatabase(url) {
         try {
+            //ErrorHandler().dataBaseError("GOOD");
 
             await mongoose.connect(url);
             //testing here, not actually an error
-            ErrorHandler.dataBaseError(err);
+            //ErrorHandler.dataBaseError(error);
             console.log("Database started");
             
         } catch (error) {
             console.log("Error connecting to the database");
             //this is being tested rn
-            ErrorHandler.dataBaseError(err);
+            ErrorHandler.dataBaseError(error);
         }
     }
 
@@ -31,6 +32,7 @@ class DatabaseHandler {
     static async createUser(username, email, learningPreference, password) {
         const duplicate = await User.findOne({username: username});
         if(duplicate) {
+            ErrorHandler.dataBaseErrorTwo("duplicate"); 
             return 409;
         }
 
