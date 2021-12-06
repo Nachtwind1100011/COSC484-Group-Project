@@ -4,6 +4,8 @@
   "description": "Group project cosc-484",
   "main": "index.js",
   "scripts": {
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
+    "start": "node index.js",
     "test": "mocha",
     "server": "node index",
     "client": "npm start --prefix client",
@@ -21,6 +23,7 @@
     "jsonwebtoken": "^8.5.1",
     "mocha": "^9.1.3",
     "mongoose": "^6.0.12",
+    "path": "^0.12.7",
     "react-router-dom": "^6.0.2"
   },
   "devDependencies": {
