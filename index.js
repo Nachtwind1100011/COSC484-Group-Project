@@ -19,7 +19,7 @@ const MONGO_URL = process.env.MONGOURL;
 let app = express();
 
 // ** MIDDLEWARE ** //
-const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://pick-my-professor.herokuapp.com/'];
+const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://pick-my-professor.herokuapp.com'];
 const corsOptions = {
   origin: function (origin, callback) {
     console.log("** Origin of request " + origin)
