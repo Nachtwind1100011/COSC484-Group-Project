@@ -7,6 +7,9 @@ const FormStyle = {
     fontWeight: "600",
     padding: "12px 30px",
   },
+  "&.btn-small": {
+    padding: "8px 12px",
+  },
   "&.MuiOutlinedInput-root": {
     textAlign: "left",
     backgroundColor: "white !important",
