@@ -9,7 +9,7 @@ With https://pick-my-professor.herokuapp.com/ you or your student are guaranteed
 
 # License
 
-https://github.com/Nachtwind1100011/COSC484-Group-Project/LICENSE
+https://github.com/Nachtwind1100011/COSC484-Group-Project/blob/main/LICENSE
 
 # Contributers
 
